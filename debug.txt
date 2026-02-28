@@ -1,0 +1,194 @@
+==========================================
+Service Failure Diagnostics
+==========================================
+
+============================================
+1. FAILED SERVICES (0 running tasks)
+============================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SERVICE: dev-oncokb-transcript
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[dev-oncokb-transcript] Checking stopped tasks...
+  Task: 21d88ba47dc142df914ecaa51dbb6d0d
+    Essential container in task exited  EssentialContainerExited
+    None        None
+  Task: ab2041d98af94f3491518bc4d3452732
+    Essential container in task exited  EssentialContainerExited
+    None        None
+  Task: c90790a7148f4e43846532be17029bc1
+    Essential container in task exited  EssentialContainerExited
+    None        None
+
+[dev-oncokb-transcript] Recent logs (last 50 lines)...
+  No log streams found
+
+[dev-oncokb-transcript] Task definition info...
+  Task Definition: arn:aws:ecs:us-east-1:270327054051:task-definition/dev-oncokb-transcript:5
+  1024  4096
+  270327054051.dkr.ecr.us-east-1.amazonaws.com/dev/oncokb-transcript:0.9.4      True    None
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SERVICE: dev-gn-grch37
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[dev-gn-grch37] Checking stopped tasks...
+  Task: 17d6475014544cc096a14a8aad3536d9
+    Essential container in task exited  EssentialContainerExited
+    None        None
+  Task: 979338638f734f90ad2729d759c90d21
+    Essential container in task exited  EssentialContainerExited
+    None        None
+  Task: a9738b2048934b18a0a15f3b2c927da5
+    Essential container in task exited  EssentialContainerExited
+    None        None
+
+[dev-gn-grch37] Recent logs (last 50 lines)...
+  No log streams found
+
+[dev-gn-grch37] Task definition info...
+  Task Definition: arn:aws:ecs:us-east-1:270327054051:task-definition/dev-oncokb-gn-grch37:6
+  2048  8192
+  270327054051.dkr.ecr.us-east-1.amazonaws.com/dev/gn-spring-boot:2.0.2 True    None
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SERVICE: dev-gn-grch38
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[dev-gn-grch38] Checking stopped tasks...
+  Task: 1dcb023ded9e428292ce26c82b8a4a90
+    Essential container in task exited  EssentialContainerExited
+    255 None
+  Task: 3b4aff1072fd4f719b74cab3eb051f72
+    Essential container in task exited  EssentialContainerExited
+    None        None
+  Task: 3e5178168a2d4470ac3cc0669a29e6bb
+    Essential container in task exited  EssentialContainerExited
+    255 None
+
+[dev-gn-grch38] Recent logs (last 50 lines)...
+  No log streams found
+
+[dev-gn-grch38] Task definition info...
+  Task Definition: arn:aws:ecs:us-east-1:270327054051:task-definition/dev-oncokb-gn-grch38:6
+  2048  8192
+  270327054051.dkr.ecr.us-east-1.amazonaws.com/dev/gn-spring-boot:2.0.2 True    None
+
+
+============================================
+2. UNHEALTHY SERVICES (running but unhealthy)
+============================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SERVICE: dev-mongo-grch37
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[dev-mongo-grch37] Health check configuration...
+{
+  "command": [
+    "CMD-SHELL",
+    "mongosh --eval \"db.adminCommand('ping')\" || exit 1"
+  ],
+  "interval": 30,
+  "timeout": 10,
+  "retries": 3,
+  "startPeriod": 30
+}
+
+[dev-mongo-grch37] Recent logs (last 30 lines)...
+  No log streams found
+
+[dev-mongo-grch37] Running task details...
+  ACTIVATING    UNHEALTHY
+  ecs-service-connect-LnnSj     HEALTHY RUNNING
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SERVICE: dev-mongo-grch38
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[dev-mongo-grch38] Health check configuration...
+{
+  "command": [
+    "CMD-SHELL",
+    "mongosh --eval \"db.adminCommand('ping')\" || exit 1"
+  ],
+  "interval": 30,
+  "timeout": 10,
+  "retries": 3,
+  "startPeriod": 30
+}
+
+[dev-mongo-grch38] Recent logs (last 30 lines)...
+  No log streams found
+
+[dev-mongo-grch38] Running task details...
+  RUNNING       UNHEALTHY
+  mongo-grch38  UNHEALTHY       RUNNING
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SERVICE: dev-oncokb
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[dev-oncokb] Health check configuration...
+{
+  "command": [
+    "CMD-SHELL",
+    "curl -f http://localhost:8080/api/v1/info || exit 1"
+  ],
+  "interval": 30,
+  "timeout": 10,
+  "retries": 3,
+  "startPeriod": 120
+}
+
+[dev-oncokb] Recent logs (last 30 lines)...
+  No log streams found
+
+[dev-oncokb] Running task details...
+  PENDING       UNKNOWN
+  oncokb        UNKNOWN PENDING
+
+
+============================================
+3. SERVICE DEPENDENCIES CHECK
+============================================
+
+Checking service dependencies from task definitions...
+[dev-oncokb-transcript] Dependencies:
+  None
+
+[dev-gn-grch37] Dependencies:
+  None
+
+[dev-gn-grch38] Dependencies:
+  None
+
+[dev-mongo-grch37] Dependencies:
+  None
+
+[dev-mongo-grch38] Dependencies:
+  None
+
+[dev-oncokb] Dependencies:
+  None
+
+============================================
+4. NETWORK CONNECTIVITY CHECK
+============================================
+
+Service Connect Configuration:
+[dev-oncokb-transcript]:
+  None
+[dev-gn-grch37]:
+  None
+[dev-gn-grch38]:
+  None
+[dev-mongo-grch37]:
+  None
+[dev-mongo-grch38]:
+  None
+[dev-oncokb]:
+  None
+
+============================================
+Diagnostics Complete
+============================================
