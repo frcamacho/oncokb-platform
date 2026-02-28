@@ -1,0 +1,175 @@
+# OncoKB Platform Docker Compose
+# 8 Services: OncoKB, OncoKB Transcript, 2x Genome Nexus, 2x VEP, 2x MongoDB
+
+services:
+  oncokb:
+    image: mskcc/oncokb:4.3.0
+    container_name: oncokb
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://${RDS_ENDPOINT}/oncokb
+      - SPRING_DATASOURCE_USERNAME=${RDS_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${RDS_PASSWORD}
+      - GENOME_NEXUS_GRCH37_URL=http://gn-grch37:8888
+      - GENOME_NEXUS_GRCH38_URL=http://gn-grch38:8889
+    depends_on:
+      - oncokb-transcript
+      - gn-grch37
+      - gn-grch38
+    networks:
+      - oncokb-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+  oncokb-transcript:
+    image: mskcc/oncokb-transcript:0.9.4
+    container_name: oncokb-transcript
+    ports:
+      - "9090:9090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://${RDS_ENDPOINT}/oncokb_transcript
+      - SPRING_DATASOURCE_USERNAME=${RDS_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${RDS_PASSWORD}
+    networks:
+      - oncokb-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  gn-grch37:
+    image: genomenexus/gn-spring-boot:2.0.2
+    container_name: gn-grch37
+    ports:
+      - "8888:8888"
+    environment:
+      - SERVER_PORT=8888
+      - GENOME_VERSION=grch37
+      - VEP_URL=http://vep-grch37:6060/vep/human/hgvs
+      - MONGODB_URI=mongodb://mongo-grch37:27017/annotator
+    depends_on:
+      - vep-grch37
+      - mongo-grch37
+    networks:
+      - oncokb-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+
+  gn-grch38:
+    image: genomenexus/gn-spring-boot:2.0.2
+    container_name: gn-grch38
+    ports:
+      - "8889:8889"
+    environment:
+      - SERVER_PORT=8889
+      - GENOME_VERSION=grch38
+      - VEP_URL=http://vep-grch38:6061/vep/human/hgvs
+      - MONGODB_URI=mongodb://mongo-grch38:27017/annotator
+    depends_on:
+      - vep-grch38
+      - mongo-grch38
+    networks:
+      - oncokb-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8889/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+
+  vep-grch37:
+    image: genomenexus/genome-nexus-vep:v0.0.1
+    container_name: vep-grch37
+    ports:
+      - "6060:6060"
+    environment:
+      - SERVER_PORT=6060
+      - VEP_ASSEMBLY=GRCh37
+    volumes:
+      - ${EFS_VEP_CACHE_PATH}/grch37:/opt/vep/.vep:ro
+    networks:
+      - oncokb-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6060/vep/human/region/7:140453136-140453136:1/T"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  vep-grch38:
+    image: genomenexus/genome-nexus-vep:v0.0.1
+    container_name: vep-grch38
+    ports:
+      - "6061:6061"
+    environment:
+      - SERVER_PORT=6061
+      - VEP_ASSEMBLY=GRCh38
+    volumes:
+      - ${EFS_VEP_CACHE_PATH}/grch38:/opt/vep/.vep:ro
+    networks:
+      - oncokb-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6061/vep/human/region/7:140753336-140753336:1/T"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  mongo-grch37:
+    image: genomenexus/gn-mongo:0.32
+    container_name: mongo-grch37
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-grch37-data:/data/db
+    networks:
+      - oncokb-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  mongo-grch38:
+    image: genomenexus/gn-mongo:0.32_grch38_ensembl95
+    container_name: mongo-grch38
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-grch38-data:/data/db
+    networks:
+      - oncokb-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  oncokb-network:
+    driver: bridge
+
+volumes:
+  mongo-grch37-data:
+  mongo-grch38-data:

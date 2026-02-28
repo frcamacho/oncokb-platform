@@ -1,0 +1,39 @@
+[workspace]
+name = "oncokb-platform"
+version = "0.1.0"
+description = "Terraform tooling for OncoKB on AWS"
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "osx-64", "linux-64"]
+
+[dependencies]
+terraform = ">=1.7,<2"
+awscli = ">=2"
+python = ">=3.11"
+
+[tasks]
+# Terraform initialization and workspace management
+tf-init = "cd terraform && terraform init -reconfigure"
+tf-workspace-list = "cd terraform && terraform workspace list"
+tf-workspace-dev = "cd terraform && terraform workspace select dev || terraform workspace new dev"
+tf-workspace-prod = "cd terraform && terraform workspace select prod || terraform workspace new prod"
+
+# Linting and validation
+fmt = "cd terraform && terraform fmt -recursive"
+fmt-check = "cd terraform && terraform fmt -check -recursive -diff"
+validate = { cmd = "cd terraform && terraform validate", depends-on = ["tf-init"] }
+lint = { cmd = "cd terraform && terraform fmt -check -recursive && terraform validate", depends-on = ["tf-init"] }
+
+# Development environment
+dev-plan = { cmd = "cd terraform && terraform plan -var-file=environments/dev.tfvars -out=dev.tfplan", depends-on = ["tf-workspace-dev"] }
+dev-apply = { cmd = "cd terraform && terraform apply dev.tfplan", depends-on = ["dev-plan"] }
+dev-destroy = { cmd = "cd terraform && terraform destroy -var-file=environments/dev.tfvars", depends-on = ["tf-workspace-dev"] }
+
+# Production environment
+prod-plan = { cmd = "cd terraform && terraform plan -var-file=environments/prod.tfvars -out=prod.tfplan", depends-on = ["tf-workspace-prod"] }
+prod-apply = { cmd = "cd terraform && terraform apply prod.tfplan", depends-on = ["prod-plan"] }
+prod-destroy = { cmd = "cd terraform && terraform destroy -var-file=environments/prod.tfvars", depends-on = ["tf-workspace-prod"] }
+
+# Convenience aliases
+plan = { depends-on = ["dev-plan"] }
+apply = { depends-on = ["dev-apply"] }
+

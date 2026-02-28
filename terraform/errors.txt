@@ -1,0 +1,134 @@
+[
+    [
+        "dev-vep-grch38",
+        "ACTIVE",
+        "COMPLETED",
+        [
+            {
+                "id": "e78af127-f43a-4b0d-a851-7bf443460ebb",
+                "createdAt": "2026-02-28T15:20:55.716000-05:00",
+                "message": "(service dev-vep-grch38) has reached a steady state."
+            },
+            {
+                "id": "4fdab082-52bd-48d1-be33-3378ab7ee254",
+                "createdAt": "2026-02-28T15:20:55.715000-05:00",
+                "message": "(service dev-vep-grch38) (deployment ecs-svc/9932070511286807454) deployment completed."
+            },
+            {
+                "id": "396e1709-7a79-4581-8e29-38156eaed026",
+                "createdAt": "2026-02-28T15:19:25.233000-05:00",
+                "message": "(service dev-vep-grch38) has started 1 tasks: (task 347bf6d95a094884951f8736aaff07f6)."
+            }
+        ]
+    ],
+    [
+        "dev-vep-grch37",
+        "ACTIVE",
+        "COMPLETED",
+        [
+            {
+                "id": "9c00c508-ef44-4690-b73d-2efed46890ed",
+                "createdAt": "2026-02-28T15:21:15.057000-05:00",
+                "message": "(service dev-vep-grch37) has reached a steady state."
+            },
+            {
+                "id": "2bffd949-4f71-4f31-8491-36216efcf083",
+                "createdAt": "2026-02-28T15:21:15.056000-05:00",
+                "message": "(service dev-vep-grch37) (deployment ecs-svc/8913552855079802155) deployment completed."
+            },
+            {
+                "id": "33aa7923-140d-455e-8cd7-263ccf34653f",
+                "createdAt": "2026-02-28T15:19:22.239000-05:00",
+                "message": "(service dev-vep-grch37) has started 1 tasks: (task e495049e82694fa6bb421a2eef76f57a)."
+            }
+        ]
+    ],
+    [
+        "dev-oncokb-transcript",
+        "ACTIVE",
+        "IN_PROGRESS",
+        [
+            {
+                "id": "8aefee02-b9bd-4d40-958e-248df10d5c37",
+                "createdAt": "2026-02-28T15:48:27.876000-05:00",
+                "message": "(service dev-oncokb-transcript) has started 1 tasks: (task f0b05f75830f41c5932a1b84e90251fe)."
+            },
+            {
+                "id": "b7ee0733-8c49-44f9-b47e-b3a46489f5f2",
+                "createdAt": "2026-02-28T15:42:14.504000-05:00",
+                "message": "(service dev-oncokb-transcript) has started 1 tasks: (task 5e3e0726bafa43819ce86a6a4550ba82)."
+            },
+            {
+                "id": "875cda40-04df-415f-b4a2-c645e967e121",
+                "createdAt": "2026-02-28T15:40:29.468000-05:00",
+                "message": "(service dev-oncokb-transcript) has started 1 tasks: (task 1f187167fba84cfdaa20a0e1a77b4ca4)."
+            }
+        ]
+    ],
+    [
+        "dev-oncokb",
+        "ACTIVE",
+        "IN_PROGRESS",
+        [
+            {
+                "id": "4274d3b0-9915-4dbb-a5ff-6f05e83f7b14",
+                "createdAt": "2026-02-28T15:54:39.903000-05:00",
+                "message": "(service dev-oncokb) has started 1 tasks: (task a3e3fa2d758b4b95841aa76aaa83f196)."
+            },
+            {
+                "id": "8686e3c0-3acb-43f2-a1e2-f89d6bd77031",
+                "createdAt": "2026-02-28T15:54:08.428000-05:00",
+                "message": "(service dev-oncokb, taskSet ecs-svc/7094247063111861225) has begun draining connections on 1 tasks."
+            },
+            {
+                "id": "bbd7aa6f-e67a-4525-8c44-3500140c31c1",
+                "createdAt": "2026-02-28T15:54:08.423000-05:00",
+                "message": "(service dev-oncokb) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:us-east-1:270327054051:targetgroup/dev-oncokb-tg/a56dcdc2b90f3514)"
+            }
+        ]
+    ],
+    [
+        "dev-gn-grch37",
+        "ACTIVE",
+        "IN_PROGRESS",
+        [
+            {
+                "id": "3d8fe4b5-5a86-47b2-a1ba-cb60249c1922",
+                "createdAt": "2026-02-28T15:48:27.418000-05:00",
+                "message": "(service dev-gn-grch37) has started 1 tasks: (task f0363265376e46259767390d7461faca)."
+            },
+            {
+                "id": "5f0fc312-f7f1-42ad-bbbe-f56f0a67d290",
+                "createdAt": "2026-02-28T15:42:15.212000-05:00",
+                "message": "(service dev-gn-grch37) has started 1 tasks: (task c660316b670a4de7bce702541c13c2d5)."
+            },
+            {
+                "id": "8a972e26-5f2e-46fb-b96b-b2b5c58ef61b",
+                "createdAt": "2026-02-28T15:40:27.333000-05:00",
+                "message": "(service dev-gn-grch37) has started 1 tasks: (task ff6126ae05ae4d4498e02c182becb955)."
+            }
+        ]
+    ],
+    [
+        "dev-gn-grch38",
+        "ACTIVE",
+        "IN_PROGRESS",
+        [
+            {
+                "id": "ad1820f7-b2ea-4cb5-8062-b05cb61528cb",
+                "createdAt": "2026-02-28T15:54:25.591000-05:00",
+                "message": "(service dev-gn-grch38) has started 1 tasks: (task 6ceaaebeb1304cfe861f69a64d77eff6)."
+            },
+            {
+                "id": "025c1c89-6837-4d9b-b2b5-6369e750257e",
+                "createdAt": "2026-02-28T15:48:08.170000-05:00",
+                "message": "(service dev-gn-grch38) has started 1 tasks: (task 75dc7e4ac1fe4b8292ffe8749bb366bf)."
+            },
+            {
+                "id": "1cc35f37-4922-4251-90f9-b02f81328470",
+                "createdAt": "2026-02-28T15:41:52.206000-05:00",
+                "message": "(service dev-gn-grch38) has started 1 tasks: (task 7fb73a9649f94aeea0720caa213d16ca)."
+            }
+        ]
+    ]
+]
