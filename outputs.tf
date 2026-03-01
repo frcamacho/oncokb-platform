@@ -109,7 +109,7 @@ output "service_discovery_namespace" {
 # ── CloudWatch ────────────────────────────────────────────────────────────────
 output "cloudwatch_log_group" {
   description = "CloudWatch log group name"
-  value       = module.cloudwatch.docker_compose_log_group_name
+  value       = module.cloudwatch.ecs_log_group_name
 }
 
 # ── ECR Repositories ──────────────────────────────────────────────────────────

@@ -65,16 +65,65 @@ variable "rds_max_allocated_storage" {
   default     = 100
 }
 
+# ── Container Image Versions ──────────────────────────────────────────────────
+
 variable "oncokb_version" {
-  description = "OncoKB Docker image version"
+  description = "OncoKB Docker image tag"
   type        = string
   default     = "4.3.0"
 }
 
 variable "oncokb_transcript_version" {
-  description = "OncoKB Transcript Docker image version"
+  description = "OncoKB Transcript image tag"
   type        = string
   default     = "0.9.4"
+}
+
+variable "gn_spring_boot_version" {
+  description = "Genome Nexus Spring Boot image tag"
+  type        = string
+  default     = "2.0.2"
+}
+
+variable "gn_mongo_grch37_version" {
+  description = "Genome Nexus MongoDB GRCh37 image tag"
+  type        = string
+  default     = "0.32"
+}
+
+variable "gn_mongo_grch38_version" {
+  description = "Genome Nexus MongoDB GRCh38 image tag"
+  type        = string
+  default     = "0.32_grch38_ensembl95"
+}
+
+variable "genome_nexus_vep_version" {
+  description = "Genome Nexus VEP image tag"
+  type        = string
+  default     = "v0.0.1"
+}
+
+# JWT secrets for oncokb-transcript (create in Secrets Manager; see README)
+variable "transcript_jwt_base64_secret_arn" {
+  description = "Secrets Manager ARN for oncokb-transcript JWT base64 secret"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "transcript_jwt_token_arn" {
+  description = "Secrets Manager ARN for oncokb-transcript JWT token (used by OncoKB API)"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+# ── ALB / TLS ────────────────────────────────────────────────────────────────
+
+variable "certificate_arn" {
+  description = "ACM certificate ARN for HTTPS on ALB. Leave empty for HTTP-only (dev)."
+  type        = string
+  default     = ""
 }
 
 # ── ECS Service Connect ───────────────────────────────────────────────────────

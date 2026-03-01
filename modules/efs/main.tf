@@ -71,3 +71,51 @@ resource "aws_efs_access_point" "grch38" {
     Environment = var.environment
   }
 }
+
+# EFS Access Point for MongoDB GRCh37 (Genome Nexus cache persistence)
+resource "aws_efs_access_point" "mongo_grch37" {
+  file_system_id = aws_efs_file_system.this.id
+
+  posix_user {
+    gid = var.posix_gid
+    uid = var.posix_uid
+  }
+
+  root_directory {
+    path = "/mongo-grch37"
+    creation_info {
+      owner_gid   = var.posix_gid
+      owner_uid   = var.posix_uid
+      permissions = var.root_directory_permissions
+    }
+  }
+
+  tags = {
+    Name        = "${var.environment}-${var.filesystem_name}-mongo-grch37"
+    Environment = var.environment
+  }
+}
+
+# EFS Access Point for MongoDB GRCh38 (Genome Nexus cache persistence)
+resource "aws_efs_access_point" "mongo_grch38" {
+  file_system_id = aws_efs_file_system.this.id
+
+  posix_user {
+    gid = var.posix_gid
+    uid = var.posix_uid
+  }
+
+  root_directory {
+    path = "/mongo-grch38"
+    creation_info {
+      owner_gid   = var.posix_gid
+      owner_uid   = var.posix_uid
+      permissions = var.root_directory_permissions
+    }
+  }
+
+  tags = {
+    Name        = "${var.environment}-${var.filesystem_name}-mongo-grch38"
+    Environment = var.environment
+  }
+}

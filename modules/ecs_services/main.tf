@@ -1,7 +1,7 @@
 # ECS Services for OncoKB Platform
 # 8 services: oncokb, oncokb-transcript, gn-grch37, gn-grch38, vep-grch37, vep-grch38, mongo-grch37, mongo-grch38
 
-# MongoDB GRCh37 Task Definition
+# MongoDB GRCh37 Task Definition (with EFS persistence)
 resource "aws_ecs_task_definition" "mongo_grch37" {
   family                   = "${var.environment}-oncokb-mongo-grch37"
   network_mode             = "awsvpc"
@@ -10,6 +10,18 @@ resource "aws_ecs_task_definition" "mongo_grch37" {
   memory                   = "1024"
   execution_role_arn       = var.task_execution_role_arn
   task_role_arn            = var.task_role_arn
+
+  volume {
+    name = "mongo-data"
+    efs_volume_configuration {
+      file_system_id     = var.efs_id
+      transit_encryption = "ENABLED"
+      authorization_config {
+        access_point_id = var.efs_access_point_mongo_grch37_id
+        iam             = "DISABLED"
+      }
+    }
+  }
 
   container_definitions = jsonencode([
     {
@@ -20,10 +32,10 @@ resource "aws_ecs_task_definition" "mongo_grch37" {
       name      = "mongo-grch37"
 
       healthCheck = {
-        command     = ["CMD-SHELL", "mongosh --eval \"db.adminCommand('ping')\" || exit 1"]
+        command     = ["CMD-SHELL", "mongosh --eval \"db.adminCommand('ping')\" || mongo --eval \"db.adminCommand('ping')\" || exit 1"]
         interval    = 30
         retries     = 3
-        startPeriod = 30
+        startPeriod = 60
         timeout     = 10
       }
 
@@ -35,6 +47,14 @@ resource "aws_ecs_task_definition" "mongo_grch37" {
           "awslogs-stream-prefix" = "mongo-grch37"
         }
       }
+
+      mountPoints = [
+        {
+          sourceVolume  = "mongo-data"
+          containerPath = "/data/db"
+          readOnly      = false
+        }
+      ]
 
       portMappings = [
         {
@@ -57,7 +77,7 @@ resource "aws_ecs_task_definition" "mongo_grch37" {
   }
 }
 
-# MongoDB GRCh38 Task Definition
+# MongoDB GRCh38 Task Definition (with EFS persistence)
 resource "aws_ecs_task_definition" "mongo_grch38" {
   family                   = "${var.environment}-oncokb-mongo-grch38"
   network_mode             = "awsvpc"
@@ -66,6 +86,18 @@ resource "aws_ecs_task_definition" "mongo_grch38" {
   memory                   = "1024"
   execution_role_arn       = var.task_execution_role_arn
   task_role_arn            = var.task_role_arn
+
+  volume {
+    name = "mongo-data-grch38"
+    efs_volume_configuration {
+      file_system_id     = var.efs_id
+      transit_encryption = "ENABLED"
+      authorization_config {
+        access_point_id = var.efs_access_point_mongo_grch38_id
+        iam             = "DISABLED"
+      }
+    }
+  }
 
   container_definitions = jsonencode([
     {
@@ -76,10 +108,10 @@ resource "aws_ecs_task_definition" "mongo_grch38" {
       name      = "mongo-grch38"
 
       healthCheck = {
-        command     = ["CMD-SHELL", "mongosh --eval \"db.adminCommand('ping')\" || exit 1"]
+        command     = ["CMD-SHELL", "mongosh --eval \"db.adminCommand('ping')\" || mongo --eval \"db.adminCommand('ping')\" || exit 1"]
         interval    = 30
         retries     = 3
-        startPeriod = 30
+        startPeriod = 60
         timeout     = 10
       }
 
@@ -91,6 +123,14 @@ resource "aws_ecs_task_definition" "mongo_grch38" {
           "awslogs-stream-prefix" = "mongo-grch38"
         }
       }
+
+      mountPoints = [
+        {
+          sourceVolume  = "mongo-data-grch38"
+          containerPath = "/data/db"
+          readOnly      = false
+        }
+      ]
 
       portMappings = [
         {
@@ -146,7 +186,7 @@ resource "aws_ecs_task_definition" "vep_grch37" {
         command     = ["CMD-SHELL", "curl -f http://localhost:6060/vep/human/region/7:140453136-140453136:1/T || exit 1"]
         interval    = 30
         retries     = 3
-        startPeriod = 60
+        startPeriod = 300
         timeout     = 10
       }
 
@@ -234,7 +274,7 @@ resource "aws_ecs_task_definition" "vep_grch38" {
         command     = ["CMD-SHELL", "curl -f http://localhost:6061/vep/human/region/7:140753336-140753336:1/T || exit 1"]
         interval    = 30
         retries     = 3
-        startPeriod = 60
+        startPeriod = 300
         timeout     = 10
       }
 
@@ -291,11 +331,6 @@ resource "aws_ecs_task_definition" "vep_grch38" {
 
 # Genome Nexus GRCh37 Task Definition
 resource "aws_ecs_task_definition" "gn_grch37" {
-  depends_on = [
-    aws_ecs_service.mongo_grch37,
-    aws_ecs_service.vep_grch37
-  ]
-
   family                   = "${var.environment}-oncokb-gn-grch37"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -312,23 +347,14 @@ resource "aws_ecs_task_definition" "gn_grch37" {
       memory    = 8192
       name      = "gn-grch37"
 
-      environment = [
-        {
-          name  = "GENOME_VERSION"
-          value = "grch37"
-        },
-        {
-          name  = "MONGODB_URI"
-          value = "mongodb://mongo-grch37:27017/annotator"
-        },
-        {
-          name  = "SERVER_PORT"
-          value = "8888"
-        },
-        {
-          name  = "VEP_URL"
-          value = "http://vep-grch37:6060/vep/human/hgvs"
-        }
+      command = [
+        "java",
+        "-Dgn_vep.url=http://vep-grch37:6060/vep/human/hgvs/VARIANT",
+        "-Dspring.data.mongodb.uri=mongodb://mongo-grch37:27017/annotator",
+        "-Dcache.enabled=true",
+        "-Dvep.static=true",
+        "-Dserver.port=8888",
+        "-jar", "/app.war"
       ]
 
       healthCheck = {
@@ -371,11 +397,6 @@ resource "aws_ecs_task_definition" "gn_grch37" {
 
 # Genome Nexus GRCh38 Task Definition
 resource "aws_ecs_task_definition" "gn_grch38" {
-  depends_on = [
-    aws_ecs_service.mongo_grch38,
-    aws_ecs_service.vep_grch38
-  ]
-
   family                   = "${var.environment}-oncokb-gn-grch38"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -392,23 +413,14 @@ resource "aws_ecs_task_definition" "gn_grch38" {
       memory    = 8192
       name      = "gn-grch38"
 
-      environment = [
-        {
-          name  = "GENOME_VERSION"
-          value = "grch38"
-        },
-        {
-          name  = "MONGODB_URI"
-          value = "mongodb://mongo-grch38:27017/annotator"
-        },
-        {
-          name  = "SERVER_PORT"
-          value = "8889"
-        },
-        {
-          name  = "VEP_URL"
-          value = "http://vep-grch38:6061/vep/human/hgvs"
-        }
+      command = [
+        "java",
+        "-Dgn_vep.url=http://vep-grch38:6061/vep/human/hgvs/VARIANT",
+        "-Dspring.data.mongodb.uri=mongodb://mongo-grch38:27017/annotator",
+        "-Dcache.enabled=true",
+        "-Dvep.static=true",
+        "-Dserver.port=8889",
+        "-jar", "/app.war"
       ]
 
       healthCheck = {
@@ -467,23 +479,46 @@ resource "aws_ecs_task_definition" "oncokb_transcript" {
       memory    = 4096
       name      = "oncokb-transcript"
 
-      secrets = [
+      environment = [
         {
-          name      = "SPRING_DATASOURCE_PASSWORD"
-          valueFrom = "${var.rds_secret_arn}:password::"
+          name  = "SPRING_PROFILES_ACTIVE"
+          value = "prod,api-docs,no-liquibase"
         },
         {
-          name      = "SPRING_DATASOURCE_URL"
-          valueFrom = "${var.rds_secret_arn}:jdbc_url_transcript::"
+          name  = "APPLICATION_REDIS_ENABLED"
+          value = "false"
         },
         {
-          name      = "SPRING_DATASOURCE_USERNAME"
-          valueFrom = "${var.rds_secret_arn}:username::"
+          name  = "SERVER_PORT"
+          value = "9090"
         }
       ]
 
+      secrets = concat(
+        [
+          {
+            name      = "SPRING_DATASOURCE_PASSWORD"
+            valueFrom = "${var.rds_secret_arn}:password::"
+          },
+          {
+            name      = "SPRING_DATASOURCE_URL"
+            valueFrom = "${var.rds_secret_arn}:jdbc_url_transcript::"
+          },
+          {
+            name      = "SPRING_DATASOURCE_USERNAME"
+            valueFrom = "${var.rds_secret_arn}:username::"
+          }
+        ],
+        var.transcript_jwt_base64_secret_arn != "" ? [
+          {
+            name      = "JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET"
+            valueFrom = var.transcript_jwt_base64_secret_arn
+          }
+        ] : []
+      )
+
       healthCheck = {
-        command     = ["CMD-SHELL", "curl -f http://localhost:9090/actuator/health || exit 1"]
+        command     = ["CMD-SHELL", "curl -sf http://localhost:9090/actuator/health || exit 1"]
         interval    = 30
         retries     = 3
         startPeriod = 60
@@ -521,13 +556,10 @@ resource "aws_ecs_task_definition" "oncokb_transcript" {
 }
 
 # OncoKB API Task Definition
+# Image entrypoint: /bin/sh -c "exec java ${JAVA_OPTS} -jar /webapp-runner.jar ${WEBAPPRUNNER_OPTS} /app.war"
+# This is webapp-runner (Tomcat), NOT Spring Boot. Configuration must use -Djdbc.* system properties.
+# We override entryPoint+command so the shell directly expands secret env vars ($JDBC_PASSWORD, etc.)
 resource "aws_ecs_task_definition" "oncokb" {
-  depends_on = [
-    aws_ecs_service.oncokb_transcript,
-    aws_ecs_service.gn_grch37,
-    aws_ecs_service.gn_grch38
-  ]
-
   family                   = "${var.environment}-oncokb"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -544,34 +576,45 @@ resource "aws_ecs_task_definition" "oncokb" {
       memory    = 8192
       name      = "oncokb"
 
-      environment = [
-        {
-          name  = "GENOME_NEXUS_GRCH37_URL"
-          value = "http://gn-grch37:8888"
-        },
-        {
-          name  = "GENOME_NEXUS_GRCH38_URL"
-          value = "http://gn-grch38:8889"
-        }
-      ]
+      entryPoint = ["/bin/sh", "-c"]
+      command = [join(" ", [
+        "exec java",
+        "-Djdbc.driverClassName=com.mysql.jdbc.Driver",
+        "\"-Djdbc.url=$JDBC_URL\"",
+        "\"-Djdbc.username=$JDBC_USERNAME\"",
+        "\"-Djdbc.password=$JDBC_PASSWORD\"",
+        "-Doncokb_transcript.url=http://oncokb-transcript:9090",
+        "\"-Doncokb_transcript.token=$TRANSCRIPT_TOKEN\"",
+        "-Dgenome_nexus.grch37.url=http://gn-grch37:8888",
+        "-Dgenome_nexus.grch38.url=http://gn-grch38:8889",
+        "-jar /webapp-runner.jar /app.war",
+      ])]
 
-      secrets = [
-        {
-          name      = "SPRING_DATASOURCE_PASSWORD"
-          valueFrom = "${var.rds_secret_arn}:password::"
-        },
-        {
-          name      = "SPRING_DATASOURCE_URL"
-          valueFrom = "${var.rds_secret_arn}:jdbc_url::"
-        },
-        {
-          name      = "SPRING_DATASOURCE_USERNAME"
-          valueFrom = "${var.rds_secret_arn}:username::"
-        }
-      ]
+      secrets = concat(
+        [
+          {
+            name      = "JDBC_PASSWORD"
+            valueFrom = "${var.rds_secret_arn}:password::"
+          },
+          {
+            name      = "JDBC_URL"
+            valueFrom = "${var.rds_secret_arn}:jdbc_url::"
+          },
+          {
+            name      = "JDBC_USERNAME"
+            valueFrom = "${var.rds_secret_arn}:username::"
+          }
+        ],
+        var.transcript_jwt_token_arn != "" ? [
+          {
+            name      = "TRANSCRIPT_TOKEN"
+            valueFrom = var.transcript_jwt_token_arn
+          }
+        ] : []
+      )
 
       healthCheck = {
-        command     = ["CMD-SHELL", "curl -f http://localhost:8080/api/v1/info || exit 1"]
+        command     = ["CMD-SHELL", "curl -sf http://localhost:8080/api/v1/info || exit 1"]
         interval    = 30
         retries     = 3
         startPeriod = 120

@@ -1,19 +1,6 @@
-# IAM roles for ECS on Fargate deployment
+# IAM roles for ECS Fargate deployment
 # - task_execution_role: Used by ECS agent to pull images and write logs
 # - task_role: Used by application containers
-
-# NOTE: EC2 instance roles commented out as we're using Fargate
-# If switching back to EC2, uncomment the EC2 instance role section below
-
-# data "aws_iam_policy_document" "ec2_assume_role" {
-#   statement {
-#     actions = ["sts:AssumeRole"]
-#     principals {
-#       type        = "Service"
-#       identifiers = ["ec2.amazonaws.com"]
-#     }
-#   }
-# }
 
 data "aws_iam_policy_document" "ecs_assume_role" {
   statement {
@@ -25,52 +12,7 @@ data "aws_iam_policy_document" "ecs_assume_role" {
   }
 }
 
-# ── EC2 Instance Role (Not needed for Fargate) ───────────────────────────────
-# Commented out as we're using Fargate. Uncomment if switching back to EC2.
-#
-# resource "aws_iam_role" "ecs_instance" {
-#   name               = "${var.environment}-oncokb-ecs-instance-role"
-#   assume_role_policy = data.aws_iam_policy_document.ec2_assume_role.json
-# }
-#
-# resource "aws_iam_role_policy_attachment" "ecs_instance_core" {
-#   role       = aws_iam_role.ecs_instance.name
-#   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
-# }
-#
-# resource "aws_iam_role_policy_attachment" "ecs_instance_ssm" {
-#   role       = aws_iam_role.ecs_instance.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-# }
-#
-# data "aws_iam_policy_document" "ecs_instance_s3" {
-#   statement {
-#     sid    = "S3DeploymentAccess"
-#     effect = "Allow"
-#     actions = [
-#       "s3:GetObject",
-#       "s3:ListBucket",
-#     ]
-#     resources = [
-#       "arn:aws:s3:::${var.deployment_bucket}",
-#       "arn:aws:s3:::${var.deployment_bucket}/*",
-#     ]
-#   }
-# }
-#
-# resource "aws_iam_role_policy" "ecs_instance_s3" {
-#   name   = "${var.environment}-ecs-instance-s3"
-#   role   = aws_iam_role.ecs_instance.id
-#   policy = data.aws_iam_policy_document.ecs_instance_s3.json
-# }
-#
-# resource "aws_iam_instance_profile" "ecs_instance" {
-#   name = "${var.environment}-oncokb-ecs-instance-profile"
-#   role = aws_iam_role.ecs_instance.name
-# }
-
 # ── ECS Task Execution Role ───────────────────────────────────────────────────
-# ECS Task Execution Role
 resource "aws_iam_role" "task_execution" {
   name               = "${var.environment}-oncokb-ecs-task-execution-role"
   assume_role_policy = data.aws_iam_policy_document.ecs_assume_role.json
@@ -125,6 +67,27 @@ resource "aws_iam_role_policy" "task_logs" {
   policy = data.aws_iam_policy_document.task_logs.json
 }
 
+# Allow tasks to use ECS Exec (SSM Session Manager)
+data "aws_iam_policy_document" "task_ssm" {
+  statement {
+    sid    = "ECSExec"
+    effect = "Allow"
+    actions = [
+      "ssmmessages:CreateControlChannel",
+      "ssmmessages:CreateDataChannel",
+      "ssmmessages:OpenControlChannel",
+      "ssmmessages:OpenDataChannel",
+    ]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_role_policy" "task_ssm" {
+  name   = "${var.environment}-task-ssm"
+  role   = aws_iam_role.task.id
+  policy = data.aws_iam_policy_document.task_ssm.json
+}
+
 # Allow tasks to access EFS
 data "aws_iam_policy_document" "task_efs" {
   statement {
@@ -135,7 +98,7 @@ data "aws_iam_policy_document" "task_efs" {
       "elasticfilesystem:ClientWrite",
       "elasticfilesystem:DescribeMountTargets",
     ]
-    resources = ["*"]
+    resources = [var.efs_filesystem_arn]
   }
 }
 

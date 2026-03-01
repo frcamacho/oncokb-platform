@@ -8,7 +8,7 @@ variable "aws_region" {
   type        = string
 }
 
-variable "deployment_bucket" {
-  description = "S3 bucket for deployment artifacts"
+variable "efs_filesystem_arn" {
+  description = "ARN of the EFS filesystem to grant task access to"
   type        = string
 }

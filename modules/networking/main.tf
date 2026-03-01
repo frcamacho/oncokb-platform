@@ -89,10 +89,11 @@ resource "aws_security_group" "rds" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    description     = "Responses to ECS tasks"
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    security_groups = [aws_security_group.ecs.id]
   }
 
   tags = {
@@ -116,10 +117,11 @@ resource "aws_security_group" "efs" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    description     = "Responses to ECS tasks"
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    security_groups = [aws_security_group.ecs.id]
   }
 
   tags = {

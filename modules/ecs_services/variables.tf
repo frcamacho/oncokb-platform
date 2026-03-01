@@ -48,9 +48,32 @@ variable "efs_access_point_grch38_id" {
   type        = string
 }
 
+variable "efs_access_point_mongo_grch37_id" {
+  description = "EFS access point ID for MongoDB GRCh37 persistence"
+  type        = string
+}
+
+variable "efs_access_point_mongo_grch38_id" {
+  description = "EFS access point ID for MongoDB GRCh38 persistence"
+  type        = string
+}
+
 variable "rds_secret_arn" {
   description = "Secrets Manager ARN for RDS credentials"
   type        = string
+}
+
+# JWT secrets for oncokb-transcript (required per https://github.com/oncokb/oncokb)
+variable "transcript_jwt_base64_secret_arn" {
+  description = "Secrets Manager ARN for oncokb-transcript JWT base64 secret (JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET)"
+  type        = string
+  default     = ""
+}
+
+variable "transcript_jwt_token_arn" {
+  description = "Secrets Manager ARN for oncokb-transcript JWT token (used by OncoKB API when calling transcript service)"
+  type        = string
+  default     = ""
 }
 
 variable "service_connect_namespace_arn" {

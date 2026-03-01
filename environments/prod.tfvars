@@ -10,5 +10,8 @@ private_subnet_ids = [
 ]
 deployment_bucket  = "oncokb-deployment-data-270327054051"
 aws_account_id     = "270327054051"
-ec2_instance_type  = "m6i.4xlarge"
 rds_instance_class = "db.t3.medium"
+
+# ECS Service Connect - update with prod namespace when available
+service_connect_namespace_arn  = "arn:aws:servicediscovery:us-east-1:270327054051:namespace/ns-REPLACE_ME"
+service_connect_namespace_name = "cggt-prod.vrtx.com"

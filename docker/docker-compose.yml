@@ -110,7 +110,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
+      start_period: 300s
 
   vep-grch38:
     image: genomenexus/genome-nexus-vep:v0.0.1
@@ -130,7 +130,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
+      start_period: 300s
 
   mongo-grch37:
     image: genomenexus/gn-mongo:0.32

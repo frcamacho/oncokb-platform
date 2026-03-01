@@ -19,9 +19,9 @@ variable "security_group_ids" {
 }
 
 variable "encrypted" {
-  description = "Whether to encrypt the EFS file system"
+  description = "Whether to encrypt the EFS file system at rest"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "transition_to_ia" {

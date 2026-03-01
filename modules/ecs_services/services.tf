@@ -1,12 +1,22 @@
 # ECS Services
+# All services default to desired_count=0 for on-demand use (Nextflow pipeline).
+# Use start-services.sh / stop-services.sh to scale up/down.
+# lifecycle ignore_changes prevents terraform apply from overriding the running count.
 
 # MongoDB GRCh37 Service
 resource "aws_ecs_service" "mongo_grch37" {
-  cluster         = var.cluster_id
-  desired_count   = 1
-  launch_type     = "FARGATE"
-  name            = "${var.environment}-mongo-grch37"
-  task_definition = aws_ecs_task_definition.mongo_grch37.arn
+  cluster                = var.cluster_id
+  desired_count          = 0
+  enable_execute_command = true
+  launch_type            = "FARGATE"
+  name                   = "${var.environment}-mongo-grch37"
+  task_definition        = aws_ecs_task_definition.mongo_grch37.arn
+  propagate_tags         = "SERVICE"
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   network_configuration {
     subnets         = var.subnet_ids
@@ -28,6 +38,10 @@ resource "aws_ecs_service" "mongo_grch37" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+
   tags = {
     Environment = var.environment
     Name        = "${var.environment}-mongo-grch37"
@@ -36,11 +50,18 @@ resource "aws_ecs_service" "mongo_grch37" {
 
 # MongoDB GRCh38 Service
 resource "aws_ecs_service" "mongo_grch38" {
-  cluster         = var.cluster_id
-  desired_count   = 1
-  launch_type     = "FARGATE"
-  name            = "${var.environment}-mongo-grch38"
-  task_definition = aws_ecs_task_definition.mongo_grch38.arn
+  cluster                = var.cluster_id
+  desired_count          = 0
+  enable_execute_command = true
+  launch_type            = "FARGATE"
+  name                   = "${var.environment}-mongo-grch38"
+  task_definition        = aws_ecs_task_definition.mongo_grch38.arn
+  propagate_tags         = "SERVICE"
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   network_configuration {
     subnets         = var.subnet_ids
@@ -62,6 +83,10 @@ resource "aws_ecs_service" "mongo_grch38" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+
   tags = {
     Environment = var.environment
     Name        = "${var.environment}-mongo-grch38"
@@ -70,13 +95,18 @@ resource "aws_ecs_service" "mongo_grch38" {
 
 # VEP GRCh37 Service
 resource "aws_ecs_service" "vep_grch37" {
-  cluster             = var.cluster_id
-  desired_count       = 1
-  force_new_deployment = true
-  launch_type         = "FARGATE"
-  platform_version    = "1.4.0"
-  name                = "${var.environment}-vep-grch37"
-  task_definition     = aws_ecs_task_definition.vep_grch37.arn
+  cluster                = var.cluster_id
+  desired_count          = 0
+  enable_execute_command = true
+  launch_type            = "FARGATE"
+  name                   = "${var.environment}-vep-grch37"
+  task_definition        = aws_ecs_task_definition.vep_grch37.arn
+  propagate_tags         = "SERVICE"
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   network_configuration {
     subnets         = var.subnet_ids
@@ -98,6 +128,10 @@ resource "aws_ecs_service" "vep_grch37" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+
   tags = {
     Environment = var.environment
     Name        = "${var.environment}-vep-grch37"
@@ -106,13 +140,18 @@ resource "aws_ecs_service" "vep_grch37" {
 
 # VEP GRCh38 Service
 resource "aws_ecs_service" "vep_grch38" {
-  cluster             = var.cluster_id
-  desired_count       = 1
-  force_new_deployment = true
-  launch_type         = "FARGATE"
-  platform_version    = "1.4.0"
-  name                = "${var.environment}-vep-grch38"
-  task_definition     = aws_ecs_task_definition.vep_grch38.arn
+  cluster                = var.cluster_id
+  desired_count          = 0
+  enable_execute_command = true
+  launch_type            = "FARGATE"
+  name                   = "${var.environment}-vep-grch38"
+  task_definition        = aws_ecs_task_definition.vep_grch38.arn
+  propagate_tags         = "SERVICE"
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   network_configuration {
     subnets         = var.subnet_ids
@@ -134,6 +173,10 @@ resource "aws_ecs_service" "vep_grch38" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+
   tags = {
     Environment = var.environment
     Name        = "${var.environment}-vep-grch38"
@@ -147,17 +190,23 @@ resource "aws_ecs_service" "gn_grch37" {
     aws_ecs_service.vep_grch37
   ]
 
-  cluster         = var.cluster_id
-  desired_count   = 1
-  launch_type     = "FARGATE"
-  name            = "${var.environment}-gn-grch37"
-  task_definition = aws_ecs_task_definition.gn_grch37.arn
+  cluster                = var.cluster_id
+  desired_count          = 0
+  enable_execute_command = true
+  launch_type            = "FARGATE"
+  name                   = "${var.environment}-gn-grch37"
+  task_definition        = aws_ecs_task_definition.gn_grch37.arn
+  propagate_tags         = "SERVICE"
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   network_configuration {
     subnets         = var.subnet_ids
     security_groups = [var.ecs_security_group_id]
   }
-
 
   service_connect_configuration {
     enabled   = true
@@ -174,6 +223,10 @@ resource "aws_ecs_service" "gn_grch37" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+
   tags = {
     Environment = var.environment
     Name        = "${var.environment}-gn-grch37"
@@ -187,17 +240,23 @@ resource "aws_ecs_service" "gn_grch38" {
     aws_ecs_service.vep_grch38
   ]
 
-  cluster         = var.cluster_id
-  desired_count   = 1
-  launch_type     = "FARGATE"
-  name            = "${var.environment}-gn-grch38"
-  task_definition = aws_ecs_task_definition.gn_grch38.arn
+  cluster                = var.cluster_id
+  desired_count          = 0
+  enable_execute_command = true
+  launch_type            = "FARGATE"
+  name                   = "${var.environment}-gn-grch38"
+  task_definition        = aws_ecs_task_definition.gn_grch38.arn
+  propagate_tags         = "SERVICE"
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   network_configuration {
     subnets         = var.subnet_ids
     security_groups = [var.ecs_security_group_id]
   }
-
 
   service_connect_configuration {
     enabled   = true
@@ -214,6 +273,10 @@ resource "aws_ecs_service" "gn_grch38" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+
   tags = {
     Environment = var.environment
     Name        = "${var.environment}-gn-grch38"
@@ -222,17 +285,23 @@ resource "aws_ecs_service" "gn_grch38" {
 
 # OncoKB Transcript Service
 resource "aws_ecs_service" "oncokb_transcript" {
-  cluster         = var.cluster_id
-  desired_count   = 1
-  launch_type     = "FARGATE"
-  name            = "${var.environment}-oncokb-transcript"
-  task_definition = aws_ecs_task_definition.oncokb_transcript.arn
+  cluster                = var.cluster_id
+  desired_count          = 0
+  enable_execute_command = true
+  launch_type            = "FARGATE"
+  name                   = "${var.environment}-oncokb-transcript"
+  task_definition        = aws_ecs_task_definition.oncokb_transcript.arn
+  propagate_tags         = "SERVICE"
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   network_configuration {
     subnets         = var.subnet_ids
     security_groups = [var.ecs_security_group_id]
   }
-
 
   service_connect_configuration {
     enabled   = true
@@ -249,6 +318,10 @@ resource "aws_ecs_service" "oncokb_transcript" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+
   tags = {
     Environment = var.environment
     Name        = "${var.environment}-oncokb-transcript"
@@ -263,11 +336,18 @@ resource "aws_ecs_service" "oncokb" {
     aws_ecs_service.gn_grch38
   ]
 
-  cluster         = var.cluster_id
-  desired_count   = 2
-  launch_type     = "FARGATE"
-  name            = "${var.environment}-oncokb"
-  task_definition = aws_ecs_task_definition.oncokb.arn
+  cluster                = var.cluster_id
+  desired_count          = 0
+  enable_execute_command = true
+  launch_type            = "FARGATE"
+  name                   = "${var.environment}-oncokb"
+  task_definition        = aws_ecs_task_definition.oncokb.arn
+  propagate_tags         = "SERVICE"
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   load_balancer {
     container_name   = "oncokb"
@@ -279,7 +359,6 @@ resource "aws_ecs_service" "oncokb" {
     subnets         = var.subnet_ids
     security_groups = [var.ecs_security_group_id]
   }
-
 
   service_connect_configuration {
     enabled   = true
@@ -294,6 +373,10 @@ resource "aws_ecs_service" "oncokb" {
         port     = 8080
       }
     }
+  }
+
+  lifecycle {
+    ignore_changes = [desired_count]
   }
 
   tags = {
