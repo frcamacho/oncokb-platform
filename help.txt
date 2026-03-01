@@ -13,3 +13,9 @@ aws ecs run-task --cluster dev-oncokb-cluster \
   }' \
   --region us-east-1 \
   --query 'tasks[0].taskArn' --output text
+
+
+# Get the task ID from the output above, then:
+aws logs tail "$(terraform output -raw cloudwatch_log_group)" \
+  --log-stream-name-prefix init-rds/ \
+  --since 5m --region us-east-1
