@@ -1,0 +1,17 @@
+Step 1: Check ECS service events (most important)
+These will tell you why tasks stopped:
+]
+# Check events for each failing serviceaws ecs describe-services \  --cluster dev-oncokb-cluster \  --services dev-gn-grch37 \  --region us-east-1 \  --query 'services[0].events[:10].[createdAt,message]' \  --output tableaws ecs describe-services \  --cluster dev-oncokb-cluster \  --services dev-oncokb-transcript \  --region us-east-1 \  --query 'services[0].events[:10].[createdAt,message]' \  --output table
+Step 2: Find and inspect the stopped tasks
+# List recently stopped tasks for gn-grch37aws ecs list-tasks \  --cluster dev-oncokb-cluster \  --service-name dev-gn-grch37 \  --desired-status STOPPED \  --region us-east-1# Then describe the stopped task (replace TASK_ARN)aws ecs describe-tasks \  --cluster dev-oncokb-cluster \  --tasks TASK_ARN \  --region us-east-1 \  --query 'tasks[0].{status:lastStatus,reason:stoppedReason,exitCode:containers[0].exitCode,containerReason:containers[0].reason}'
+Step 3: Check CloudWatch logs
+# Get the log group name from terraformterraform output -raw cloudwatch_log_group# Then tail logs for the failing servicesaws logs tail LOG_GROUP_NAME \  --filter-pattern '"gn-grch37"' \  --since 30m \  --region us-east-1
+Most likely causes based on your config:
+1. oncokb-transcript -- Secrets Manager key mismatch
+The task definition references ${var.rds_secret_arn}:jdbc_url_transcript:: (line 505 in main.tf). If your Secrets Manager secret doesn't have a key called jdbc_url_transcript, ECS will fail to inject the secret and the task will never start. The error in events would say something like "ResourceInitializationError: unable to retrieve secrets". Check that your secret has this exact key:
+aws secretsmanager get-secret-value \  --secret-id dev-oncokb-rds \  --region us-east-1 \  --query 'SecretString' \  --output text | jq 'keys'
+You'd need to see jdbc_url_transcript, jdbc_url, password, username, host, port all present.
+2. gn-grch37 / gn-grch38 -- Connectivity or OOM
+These are 2048 CPU / 8192 MB tasks running Java with Spring Boot + MongoDB. The connection strings use Service Connect DNS names (mongodb://mongo-grch37:27017). If Mongo is running but Service Connect resolution is failing, or if the Java process runs out of heap, the container exits immediately. The startPeriod is only 90 seconds (line 364), which is quite tight for a large Spring Boot app.
+3. oncokb -- cascading failure
+Since it depends on gn + transcript via HTTP, if those are down, oncokb will fail health checks and get killed.
