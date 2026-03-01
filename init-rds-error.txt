@@ -1,8 +1,50 @@
-aws logs get-log-events \
-  --log-group-name "$(terraform output -raw cloudwatch_log_group)" \
-  --log-stream-name "oncokb/oncokb/2bdb6eda06314786a69e3fbf545f2c4c" \
-  --start-from-head \
-  --limit 80 \
-  --region us-east-1 \
-  --query 'events[].message' \
-  --output text
+Expanding app.war into /target/tomcat.8080/webapps/expanded     Adding Context  for /target/tomcat.8080/webapps/expanded    Mar 01, 2026 8:24:16 PM org.apache.coyote.AbstractProtocol init INFO: Initializing ProtocolHandler ["http-nio-8080"]        Mar 01, 2026 8:24:16 PM org.apache.tomcat.util.net.NioSelectorPool getSharedSelector    INFO: Using a shared selector for servlet write/read        Mar 01, 2026 8:24:16 PM org.apache.catalina.core.StandardService startInternal      INFO: Starting service [Tomcat] Mar 01, 2026 8:24:16 PM org.apache.catalina.core.StandardEngine startInternal       INFO: Starting Servlet engine: [Apache Tomcat/8.5.68]   Mar 01, 2026 8:24:16 PM org.apache.catalina.startup.SetContextPropertiesRule begin  WARNING: [SetContextPropertiesRule]{Context} Setting property 'antiJARLocking' to 'true' did not find a matching property.  Mar 01, 2026 8:24:16 PM org.apache.catalina.startup.ContextConfig getDefaultWebXmlFragment  INFO: No global web.xml found   Mar 01, 2026 8:24:28 PM org.apache.jasper.servlet.TldScanner scanJars       INFO: At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time. Mar 01, 2026 8:24:28 PM org.apache.catalina.core.ApplicationContext log     INFO: No Spring WebApplicationInitializer types detected on classpath   Mar 01, 2026 8:24:28 PM org.apache.catalina.core.ApplicationContext log     INFO: Initializing Spring root WebApplicationContext    log4j:WARN No appenders could be found for logger (org.springframework.web.context.ContextLoader).  log4j:WARN Please initialize the log4j system properly.     log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.         Mar 01, 2026 8:24:29 PM org.apache.catalina.core.ApplicationContext log INFO: Initializing Spring FrameworkServlet 'SpringDispatcher'       Mar 01, 2026 8:24:43 PM org.apache.catalina.core.ApplicationContext log SEVERE: Servlet.init() for servlet [SpringDispatcher] threw exception       org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.
+cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException           
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAuto
+wireCapableBeanFactory.java:1158)               at org.springframework.beans.factory.support.AbstractAutowireCapable
+BeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)            at org.springframework.beans
+.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)       
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireC
+apableBeanFactory.java:481)             at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject
+(AbstractBeanFactory.java:312)          at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.ge
+tSingleton(DefaultSingletonBeanRegistry.java:230)               at org.springframework.beans.factory.support.Abstrac
+tBeanFactory.doGetBean(AbstractBeanFactory.java:308)            at org.springframework.beans.factory.support.Abstrac
+tBeanFactory.getBean(AbstractBeanFactory.java:197)              at org.springframework.beans.factory.support.Default
+ListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)               at org.springframewo
+rk.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)  
+                at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext
+.java:542)              at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext
+(FrameworkServlet.java:668)             at org.springframework.web.servlet.FrameworkServlet.createWebApplicationCont
+ext(FrameworkServlet.java:634)          at org.springframework.web.servlet.FrameworkServlet.createWebApplicationCont
+ext(FrameworkServlet.java:682)          at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContex
+t(FrameworkServlet.java:553)            at org.springframework.web.servlet.FrameworkServlet.initServletBean(Framewor
+kServlet.java:494)              at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171) 
+
+               at javax.servlet.GenericServlet.init(GenericServlet.java:158)           at org.apache.catalina.core.
+StandardWrapper.initServlet(StandardWrapper.java:1152)          at org.apache.catalina.core.StandardWrapper.loadServ
+let(StandardWrapper.java:1097)          at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:990)  
+                at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4952)            at o
+rg.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5266)                at org.apache.catali
+na.util.LifecycleBase.start(LifecycleBase.java:183)             at org.apache.catalina.core.ContainerBase$StartChild
+.call(ContainerBase.java:1429)          at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java
+:1419)          at java.util.concurrent.FutureTask.run(FutureTask.java:266)             at java.util.concurrent.Thre
+adPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)          at java.util.concurrent.ThreadPoolExecutor$Worker.ru
+n(ThreadPoolExecutor.java:624)          at java.lang.Thread.run(Thread.java:750)        Caused by: org.springframewo
+rk.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Construc
+tor threw exception; nested exception is java.lang.NullPointerException         at org.springframework.beans.BeanUti
+ls.instantiateClass(BeanUtils.java:157)         at org.springframework.beans.factory.support.SimpleInstantiationStra
+tegy.instantiate(SimpleInstantiationStrategy.java:89)           at org.springframework.beans.factory.support.Abstrac
+tAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)               ... 29 more 
+        Caused by: java.lang.NullPointerException               at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersi
+on(MainUtils.java:363)          at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)  
+                at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)                at sun.refle
+ct.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)             at sun.reflect.Deleg
+atingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)             at java.lang.reflect
+.Constructor.newInstance(Constructor.java:423)          at org.springframework.beans.BeanUtils.instantiateClass(Bean
+Utils.java:145)         ... 31 more     Mar 01, 2026 8:24:43 PM org.apache.catalina.core.StandardContext loadOnStart
+up      SEVERE: Servlet [SpringDispatcher] in web application [] threw load() exception java.lang.NullPointerExcepti
+on              at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)              at org.mskcc
+.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)          at sun.reflect.NativeConstructorAcce
+ssorImpl.newInstance0(Native Method)            at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConst
+ructorAccessorImpl.java:62)             at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConst
+ructorAccessorImpl.java:45)
