@@ -10,6 +10,7 @@ terraform = ">=1.7,<2"
 awscli = ">=2"
 python = ">=3.11"
 pyjwt = ">=2.8,<3"
+jq = ">=1.7"
 
 [tasks]
 # Terraform initialization and workspace management
@@ -40,6 +41,12 @@ apply = { depends-on = ["dev-apply"] }
 
 # ECR image migration
 push-ecr = "bash scripts/push-ecr.sh"
+
+# Database initialization (runs as Fargate task inside VPC)
+init-rds = "bash scripts/run-init-task.sh"
+
+# EFS VEP cache initialization (runs as Fargate task with EFS volume)
+init-efs = "bash scripts/run-init-efs-task.sh"
 
 # Service management
 start = "bash scripts/start-services.sh"

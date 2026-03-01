@@ -156,13 +156,20 @@ Then `pixi run dev-plan && pixi run dev-apply` to update task definitions.
 ### 6. Initialize data
 
 ```bash
-# Load SQL dumps into RDS (run from host with VPC access + mysql client)
-export DB_SECRET_ARN=$(terraform output -raw db_secret_arn)
-./scripts/init-rds-databases.sh
+# Load SQL dumps into RDS (launches a one-off Fargate task inside the VPC)
+pixi run init-rds
+# or: ./scripts/run-init-task.sh --env dev --region us-east-1
 
-# Load VEP cache into EFS (run from ECS Exec or mounted EC2)
-./scripts/init-efs-vep-cache.sh
+# Load VEP cache into EFS (launches a one-off Fargate task with EFS volume)
+pixi run init-efs
+# or: ./scripts/run-init-efs-task.sh --env dev --region us-east-1
 ```
+
+> **Note:** Both init tasks run as Fargate tasks so they can reach private resources
+> without VPN or bastion access. `init-rds` pulls DB credentials from Secrets Manager and
+> downloads SQL dumps via pre-signed S3 URLs (~20-40 min). `init-efs` mounts the EFS volume
+> and downloads/extracts VEP 98 cache tarballs via pre-signed S3 URLs (~15-30 min).
+> Both stream logs to CloudWatch.
 
 ### 7. Start services
 
@@ -187,8 +194,10 @@ pixi run start
 | `stop-services.sh` | Scale ECS to 0; `--stop-rds` also stops the RDS instance |
 | `check-services.sh` | Show status of all services and RDS |
 | `push-ecr.sh` | Pull from Docker Hub, push to ECR |
-| `init-rds-databases.sh` | Load SQL dumps from S3 into RDS |
-| `init-efs-vep-cache.sh` | Extract VEP 98 cache tarballs to EFS |
+| `run-init-task.sh` | Launch Fargate task to load SQL dumps into RDS |
+| `run-init-efs-task.sh` | Launch Fargate task to load VEP 98 cache into EFS |
+| `init-rds-databases.sh` | Load SQL dumps from S3 into RDS (called by init task) |
+| `init-efs-vep-cache.sh` | Extract VEP 98 cache tarballs to EFS (standalone, needs mount) |
 | `test-endpoints.sh` | Curl ALB health + BRAF annotation test |
 | `diagnose-failures.sh` | Stopped task reasons, recent logs, events |
 | `generate_transcript_token.py` | Generate JWT secret + token for oncokb-transcript |
