@@ -31,13 +31,21 @@ fi
 
 ECR_BASE="${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com"
 
-declare -A IMAGES=(
-  ["gn-mongo-grch37:0.32"]="genomenexus/gn-mongo:0.32"
-  ["gn-mongo-grch38:0.32_grch38_ensembl95"]="genomenexus/gn-mongo:0.32_grch38_ensembl95"
-  ["genome-nexus-vep:v0.0.1"]="genomenexus/genome-nexus-vep:v0.0.1"
-  ["gn-spring-boot:2.0.2"]="genomenexus/gn-spring-boot:2.0.2"
-  ["oncokb-transcript:0.9.4"]="mskcc/oncokb-transcript:0.9.4"
-  ["oncokb:4.3.0"]="mskcc/oncokb:4.3.0"
+ECR_TAGS=(
+  "gn-mongo-grch37:0.32"
+  "gn-mongo-grch38:0.32_grch38_ensembl95"
+  "genome-nexus-vep:v0.0.1"
+  "gn-spring-boot:2.0.2"
+  "oncokb-transcript:0.9.4"
+  "oncokb:4.3.0"
+)
+HUB_IMAGES=(
+  "genomenexus/gn-mongo:0.32"
+  "genomenexus/gn-mongo:0.32_grch38_ensembl95"
+  "genomenexus/genome-nexus-vep:v0.0.1"
+  "genomenexus/gn-spring-boot:2.0.2"
+  "mskcc/oncokb-transcript:0.9.4"
+  "mskcc/oncokb:4.3.0"
 )
 
 echo "=== Push Docker Hub images to ECR ==="
@@ -51,8 +59,9 @@ aws ecr get-login-password --region "$REGION" | \
 echo ""
 
 FAILED=()
-for ecr_tag in "${!IMAGES[@]}"; do
-  hub_image="${IMAGES[$ecr_tag]}"
+for i in "${!ECR_TAGS[@]}"; do
+  ecr_tag="${ECR_TAGS[$i]}"
+  hub_image="${HUB_IMAGES[$i]}"
   ecr_repo="${ENVIRONMENT}/${ecr_tag%%:*}"
   ecr_version="${ecr_tag#*:}"
   ecr_image="${ECR_BASE}/${ecr_repo}:${ecr_version}"
@@ -81,7 +90,7 @@ done
 
 echo "=== Summary ==="
 if [ ${#FAILED[@]} -eq 0 ]; then
-  echo "All ${#IMAGES[@]} images pushed successfully."
+  echo "All ${#ECR_TAGS[@]} images pushed successfully."
 else
   echo "FAILED (${#FAILED[@]}):"
   printf "  %s\n" "${FAILED[@]}"
