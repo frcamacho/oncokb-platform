@@ -70,7 +70,7 @@ for i in "${!ECR_TAGS[@]}"; do
   echo "  Source: ${hub_image}"
   echo "  Target: ${ecr_image}"
 
-  if ! docker pull "${hub_image}"; then
+  if ! docker pull --platform linux/amd64 "${hub_image}"; then
     echo "  FAILED to pull ${hub_image}"
     FAILED+=("${hub_image}")
     continue
