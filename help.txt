@@ -19,3 +19,17 @@ aws ecs run-task --cluster dev-oncokb-cluster \
 aws logs tail "$(terraform output -raw cloudwatch_log_group)" \
   --log-stream-name-prefix init-rds/ \
   --since 5m --region us-east-1
+
+
+aws ecs list-tasks --cluster dev-oncokb-cluster \
+  --family dev-oncokb-init-rds --desired-status RUNNING \
+  --region us-east-1
+
+# Also check stopped (in case it already finished)
+aws ecs list-tasks --cluster dev-oncokb-cluster \
+  --family dev-oncokb-init-rds --desired-status STOPPED \
+  --region us-east-1
+
+aws logs tail "$(terraform output -raw cloudwatch_log_group)" \
+  --log-stream-name-prefix init-rds/ \
+  --since 30m --region us-east-1
