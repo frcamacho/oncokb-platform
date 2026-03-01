@@ -17,8 +17,8 @@ resource "aws_secretsmanager_secret_version" "db_credentials" {
   secret_string = jsonencode({
     engine              = "mysql"
     host                = var.db_host
-    jdbc_url            = "jdbc:mysql://${var.db_host}:${var.db_port}/oncokb?useUnicode=yes&characterEncoding=UTF-8&useSSL=true&requireSSL=true&verifyServerCertificate=false"
-    jdbc_url_transcript = "jdbc:mysql://${var.db_host}:${var.db_port}/oncokb_transcript?useUnicode=yes&characterEncoding=UTF-8&useSSL=true&requireSSL=true&verifyServerCertificate=false"
+    jdbc_url            = "jdbc:mysql://${var.db_host}:${var.db_port}/oncokb?useUnicode=yes&characterEncoding=UTF-8&useSSL=false"
+    jdbc_url_transcript = "jdbc:mysql://${var.db_host}:${var.db_port}/oncokb_transcript?useUnicode=yes&characterEncoding=UTF-8&useSSL=false"
     password            = var.db_password
     port                = var.db_port
     username            = var.db_username
