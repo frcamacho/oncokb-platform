@@ -15,3 +15,139 @@ You'd need to see jdbc_url_transcript, jdbc_url, password, username, host, port 
 These are 2048 CPU / 8192 MB tasks running Java with Spring Boot + MongoDB. The connection strings use Service Connect DNS names (mongodb://mongo-grch37:27017). If Mongo is running but Service Connect resolution is failing, or if the Java process runs out of heap, the container exits immediately. The startPeriod is only 90 seconds (line 364), which is quite tight for a large Spring Boot app.
 3. oncokb -- cascading failure
 Since it depends on gn + transcript via HTTP, if those are down, oncokb will fail health checks and get killed.
+
+
+Starting session with SessionId: ecs-execute-command-vhhq69hbyng6fkpchfp8xenvea
+# curl -v http://localhost:8080/api/v1/info
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> GET /api/v1/info HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.74.0
+> Accept: */*
+> 
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 500 
+< Content-Type: text/html;charset=utf-8
+< Content-Language: en
+< Transfer-Encoding: chunked
+< Date: Sun, 01 Mar 2026 21:17:56 GMT
+< Connection: close
+< 
+<!doctype html><html lang="en"><head><title>HTTP Status 500 – Internal Server Error</title><style type="text/css">body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}</style></head><body><h1>HTTP Status 500 – Internal Server Error</h1><hr class="line" /><p><b>Type</b> Exception Report</p><p><b>Message</b> Servlet.init() for servlet [SpringDispatcher] threw exception</p><p><b>Description</b> The server encountered an unexpected condition that prevented it from fulfilling the request.</p><p><b>Exception</b></p><pre>javax.servlet.ServletException: Servlet.init() for servlet [SpringDispatcher] threw exception
+        org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+        org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+        org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+        org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+        org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+        org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+        org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+        org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+        java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+        java.lang.Thread.run(Thread.java:750)
+</pre><p><b>Root Cause</b></p><pre>org.springframework.beans.factory.BeanCreationException: Error creating bean with name &#39;cacheNameResolver&#39; defined in URL [jar:file:&#47;target&#47;tomcat.8080&#47;webapps&#47;expanded&#47;WEB-INF&#47;lib&#47;core-4.3.0.jar!&#47;org&#47;mskcc&#47;cbio&#47;oncokb&#47;cache&#47;CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+        org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+        org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+        org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+        org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+        org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+        org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+        org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+        org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+        org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+        org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+        org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+        org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+        org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+        javax.servlet.GenericServlet.init(GenericServlet.java:158)
+        org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+        org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+        org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+        org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+        org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+        org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+        org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+        org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+        java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+        java.lang.Thread.run(Thread.java:750)
+</pre><p><b>Root Cause</b></p><pre>org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+        org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:157)
+        org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+        org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+        org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+        org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+        org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+        org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+        org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+        org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+        org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+        org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+        org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+        org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+        org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+        org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+        javax.servlet.GenericServlet.init(GenericServlet.java:158)
+        org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+        org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+        org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+        org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+        org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+        org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+        org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+        org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+        java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+        java.lang.Thread.run(Thread.java:750)
+</pre><p><b>Root Cause</b></p><pre>java.lang.NullPointerException
+        org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+        org.mskcc.cbio.oncokb.cache.CacheNameResolver.&lt;init&gt;(CacheNameResolver.java:38)
+        sun.reflect.GeneratedConstructorAccessor100.newInstance(Unknown Source)
+        sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+        org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+        org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+        org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+        org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+        org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+        org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+        org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+        org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+        org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+        org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+        org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+        org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+        org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+        org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+        org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+        javax.servlet.GenericServlet.init(GenericServlet.java:158)
+        org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+        org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+        org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+        org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+        org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+        org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+        org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+        org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+        java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+        java.lang.Thread.run(Thread.java:750)
+* Closing connection 0
+</pre><p><b>Note</b> The full stack trace of the root cause is available in the server logs.</p><hr class="line" /><h3>Apache Tomcat/8.5.68</h3></body></html># 
