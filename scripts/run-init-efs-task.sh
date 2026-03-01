@@ -89,11 +89,13 @@ echo ""
 TASK_FAMILY="${ENVIRONMENT}-oncokb-init-efs"
 
 # Container script: pre-signed URLs are passed via run-task overrides.
-# amazonlinux:2023 includes curl and tar; no package installs needed.
 read -r -d '' CONTAINER_CMD << 'INITSCRIPT' || true
 set -e
 echo "=== OncoKB VEP 98 Cache Init Task ==="
 echo "EFS mount: /mnt/efs/vep_cache"
+
+echo "Installing required tools..."
+dnf install -y -q tar gzip
 
 if [ ! -d /mnt/efs/vep_cache ]; then
   echo "ERROR: /mnt/efs/vep_cache does not exist. EFS volume not mounted."
