@@ -1,23 +1,15 @@
-aws ecs execute-command --cluster dev-oncokb-cluster \
-  --task "$TASK_ARN" --container oncokb \
-  --interactive --command "/bin/sh" --region us-east-1
-
-The Session Manager plugin was installed successfully. Use the AWS CLI to start a session.
-
-
-Starting session with SessionId: ecs-execute-command-9rtavib5ajekniy77czfsni6kq
-# echo "$JDBC_URL"
-jdbc:mysql://dev-oncokb.cacxtgkaufcx.us-east-1.rds.amazonaws.com:3306/oncokb?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
-# cat /proc/1/cmdline | tr '\0' '\n'
-java
--Djdbc.driverClassName=com.mysql.jdbc.Driver
--Djdbc.url=jdbc:mysql://dev-oncokb.cacxtgkaufcx.us-east-1.rds.amazonaws.com:3306/oncokb?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
--Djdbc.username=oncokb_admin
--Djdbc.password=wljcSnHCrmRyk2d8Ih7NZpm5sVSB2kbc
--Doncokb_transcript.url=http://oncokb-transcript:9090
--Doncokb_transcript.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJvbmNva2Itc2VydmljZSIsIm5hbWUiOiJPbmNvS0IiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTc3MjMzNzQxNX0.5JpkVJTXFV-Sxfxn_QSGBsTwoFGxReKi6HUv2J0kwsE
--Dgenome_nexus.grch37.url=http://gn-grch37:8888
--Dgenome_nexus.grch38.url=http://gn-grch38:8889
--jar
-/webapp-runner.jar
-/app.war
+aws ecs run-task --cluster dev-oncokb-cluster \
+  --task-definition dev-oncokb-init-rds \
+  --launch-type FARGATE \
+  --network-configuration "$(aws ecs describe-services \
+    --cluster dev-oncokb-cluster --services dev-oncokb \
+    --region us-east-1 \
+    --query 'services[0].networkConfiguration' --output json)" \
+  --overrides '{
+    "containerOverrides": [{
+      "name": "init-rds",
+      "command": ["bash", "-c", "export MYSQL_PWD=$RDS_PASSWORD; mysql -h $RDS_HOST -u $RDS_USERNAME -P $RDS_PORT oncokb -e \"SHOW TABLES;\" && mysql -h $RDS_HOST -u $RDS_USERNAME -P $RDS_PORT oncokb -e \"SELECT * FROM info;\""]
+    }]
+  }' \
+  --region us-east-1 \
+  --query 'tasks[0].taskArn' --output text
