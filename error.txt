@@ -1,3 +1,16 @@
+ecs_services/main L578-593
+command = [join(" ", [
+        "printf '%s\\n'",
+        "'log4j.rootLogger=INFO,stdout'",
+        "'log4j.appender.stdout=org.apache.log4j.ConsoleAppender'",
+        "'log4j.appender.stdout.Target=System.out'",
+        "'log4j.appender.stdout.layout=org.apache.log4j.PatternLayout'",
+        "'log4j.appender.stdout.layout.ConversionPattern=%d{ISO8601} %-5p [%t] %c - %m%n'",
+        "> /tmp/log4j.properties &&",
+        "exec java",
+        "-Dlog4j.configuration=file:/tmp/log4j.properties",
+        "-Djdbc.driverClassName=com.mysql.jdbc.Driver",
+
 # 1. Apply the Terraform changes (updates parameter group + task definition)
 pixi run apply
 
