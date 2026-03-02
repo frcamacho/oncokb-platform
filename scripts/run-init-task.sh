@@ -112,6 +112,11 @@ ls -lh /tmp/*.sql
 export MYSQL_PWD="$RDS_PASSWORD"
 
 echo ""
+echo "Switching authentication plugin to mysql_native_password..."
+mysql -h "$RDS_HOST" -u "$RDS_USERNAME" -P "$RDS_PORT" -e \
+  "ALTER USER '$RDS_USERNAME'@'%' IDENTIFIED WITH mysql_native_password BY '$RDS_PASSWORD';"
+
+echo ""
 echo "Creating databases..."
 mysql -h "$RDS_HOST" -u "$RDS_USERNAME" -P "$RDS_PORT" -e \
   "CREATE DATABASE IF NOT EXISTS oncokb; CREATE DATABASE IF NOT EXISTS oncokb_transcript; SHOW DATABASES;"

@@ -587,7 +587,6 @@ resource "aws_ecs_task_definition" "oncokb" {
         "\"-Doncokb_transcript.token=$TRANSCRIPT_TOKEN\"",
         "-Dgenome_nexus.grch37.url=http://gn-grch37:8888",
         "-Dgenome_nexus.grch38.url=http://gn-grch38:8889",
-        "-Dlog4j.configuration=classpath:properties/log4j.properties",
         "-jar /webapp-runner.jar /app.war",
       ])]
 

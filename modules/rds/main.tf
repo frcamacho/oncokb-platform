@@ -32,6 +32,12 @@ resource "aws_db_parameter_group" "this" {
     value = "{DBInstanceClassMemory*3/4}" # 75% of available memory
   }
 
+  parameter {
+    name         = "default_authentication_plugin"
+    value        = "mysql_native_password"
+    apply_method = "pending-reboot"
+  }
+
   lifecycle {
     create_before_destroy = true
   }
