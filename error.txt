@@ -1,3 +1,36 @@
 JDBC_URL=jdbc:mysql://dev-oncokb.cacxtgkaufcx.us-east-1.rds.amazonaws.com:3306/oncokb?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
 
 timeout 5 bash -c "echo > /dev/tcp/dev-oncokb.cacxtgkaufcx.us-east-1.rds.amazonaws.com/3306" && echo "DB reachable" || echo "DB unreachable"
+
+2026-03-01T23:24:13.910000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 === OncoKB RDS Init Task ===
+2026-03-01T23:24:13.910000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 RDS Host: dev-oncokb.cacxtgkaufcx.us-east-1.rds.amazonaws.com:3306
+2026-03-01T23:24:13.910000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Installing curl...
+2026-03-01T23:24:14.021000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Downloading metadata...
+2026-03-01T23:24:31.050000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Downloading metadata...
+2026-03-01T23:24:49.742000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Downloading metadata...
+2026-03-01T23:24:50.720000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Downloading metadata...
+2026-03-01T23:24:54.546000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Nothing to do.
+2026-03-01T23:24:54.565000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Downloading oncokb SQL dump...
+2026-03-01T23:24:54.818000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Downloading oncokb_transcript SQL dump...
+2026-03-01T23:24:55.068000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Decompressing...
+2026-03-01T23:24:55.455000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 -rw-r--r-- 1 root root 27M Mar  1 23:24 /tmp/oncokb.sql
+2026-03-01T23:24:55.455000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 -rw-r--r-- 1 root root 31M Mar  1 23:24 /tmp/transcript.sql
+2026-03-01T23:24:55.456000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Creating databases...
+2026-03-01T23:24:55.484000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Database
+2026-03-01T23:24:55.484000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 information_schema
+2026-03-01T23:24:55.484000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 mysql
+2026-03-01T23:24:55.484000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 oncokb
+2026-03-01T23:24:55.484000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 oncokb_transcript
+2026-03-01T23:24:55.484000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 performance_schema
+2026-03-01T23:24:55.484000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 sys
+2026-03-01T23:24:55.485000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Loading oncokb database (15-25 min)...
+2026-03-01T23:25:05.405000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0   oncokb loaded.
+2026-03-01T23:25:05.405000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 Loading oncokb_transcript database (5-10 min)...
+2026-03-01T23:25:18.508000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0   oncokb_transcript loaded.
+2026-03-01T23:25:18.508000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 === Verification ===
+2026-03-01T23:25:18.536000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 oncokb tables: 25
+2026-03-01T23:25:18.563000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 gene_count
+2026-03-01T23:25:18.563000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 919
+2026-03-01T23:25:18.589000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 oncokb_transcript tables: 13
+2026-03-01T23:25:18.616000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 checking info table verification: v4.27     2025-03-28 00:00:00
+2026-03-01T23:25:18.617000+00:00 init-rds/init-rds/f4f3e00ae1c74114beea17c620f34fc0 === RDS Init Complete ===
