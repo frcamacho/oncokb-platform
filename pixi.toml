@@ -1,0 +1,60 @@
+[workspace]
+name = "oncokb-platform"
+version = "0.1.0"
+description = "Terraform tooling for OncoKB on AWS"
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "osx-64", "linux-64"]
+
+[dependencies]
+terraform = ">=1.7,<2"
+awscli = ">=2"
+python = ">=3.11"
+pyjwt = ">=2.8,<3"
+jq = ">=1.7"
+
+[tasks]
+# Terraform initialization and workspace management
+tf-init = "terraform init -reconfigure"
+tf-workspace-list = "terraform workspace list"
+tf-workspace-dev = "terraform workspace select dev || terraform workspace new dev"
+tf-workspace-prod = "terraform workspace select prod || terraform workspace new prod"
+
+# Linting and validation
+fmt = "terraform fmt -recursive"
+fmt-check = "terraform fmt -check -recursive -diff"
+validate = { cmd = "terraform validate", depends-on = ["tf-init"] }
+lint = { cmd = "terraform fmt -check -recursive && terraform validate", depends-on = ["tf-init"] }
+
+# Development environment
+dev-plan = { cmd = "terraform plan -var-file=environments/dev.tfvars -out=dev.tfplan", depends-on = ["tf-workspace-dev"] }
+dev-apply = { cmd = "terraform apply dev.tfplan", depends-on = ["dev-plan"] }
+dev-destroy = { cmd = "terraform destroy -var-file=environments/dev.tfvars", depends-on = ["tf-workspace-dev"] }
+
+# Production environment
+prod-plan = { cmd = "terraform plan -var-file=environments/prod.tfvars -out=prod.tfplan", depends-on = ["tf-workspace-prod"] }
+prod-apply = { cmd = "terraform apply prod.tfplan", depends-on = ["prod-plan"] }
+prod-destroy = { cmd = "terraform destroy -var-file=environments/prod.tfvars", depends-on = ["tf-workspace-prod"] }
+
+# Convenience aliases
+plan = { depends-on = ["dev-plan"] }
+apply = { depends-on = ["dev-apply"] }
+
+# ECR image migration
+push-ecr = "bash scripts/push-ecr.sh"
+
+# Database initialization (runs as Fargate task inside VPC)
+init-rds = "bash scripts/run-init-task.sh"
+
+# EFS VEP cache initialization (runs as Fargate task with EFS volume)
+init-efs = "bash scripts/run-init-efs-task.sh"
+
+# Service management
+start = "bash scripts/start-services.sh"
+stop = "bash scripts/stop-services.sh"
+status = "bash scripts/check-services.sh"
+
+# JWT token generation
+generate-transcript-token = "python scripts/generate_transcript_token.py"
+
+# Documentation
+docs = "for dir in modules/*/; do echo \"--- $dir ---\"; done && echo 'Module READMEs are in modules/*/README.md'"

@@ -1,0 +1,79 @@
+image: hashicorp/terraform:1.14
+
+definitions:
+  caches:
+    terraform-plugins:
+      key:
+        files:
+          - "**/*.tf"
+      path: .terraform
+
+  steps:
+    - step: &lint-validate
+        name: Lint & Validate
+        caches:
+          - terraform-plugins
+        script:
+          - terraform fmt -check -recursive -diff
+          - terraform init -backend=false
+          - terraform validate
+
+    - step: &security-scan
+        name: Security Scan (checkov)
+        image: bridgecrew/checkov:latest
+        script:
+          - checkov -d . --framework terraform --soft-fail --compact
+
+    - step: &plan-dev
+        name: Plan (dev)
+        caches:
+          - terraform-plugins
+        script:
+          - terraform init
+          - terraform workspace select dev || terraform workspace new dev
+          - terraform plan -var-file=environments/dev.tfvars -input=false
+
+    - step: &plan-prod
+        name: Plan (prod)
+        caches:
+          - terraform-plugins
+        script:
+          - terraform init
+          - terraform workspace select prod || terraform workspace new prod
+          - terraform plan -var-file=environments/prod.tfvars -input=false
+
+pipelines:
+  pull-requests:
+    '**':
+      - step: *lint-validate
+      - step: *security-scan
+      - step: *plan-dev
+
+  branches:
+    main:
+      - step: *lint-validate
+      - step: *security-scan
+      - step: *plan-dev
+      - step:
+          name: Apply (dev)
+          trigger: manual
+          deployment: dev
+          caches:
+            - terraform-plugins
+          script:
+            - terraform init
+            - terraform workspace select dev
+            - terraform plan -var-file=environments/dev.tfvars -out=dev.tfplan -input=false
+            - terraform apply -input=false dev.tfplan
+      - step: *plan-prod
+      - step:
+          name: Apply (prod)
+          trigger: manual
+          deployment: prod
+          caches:
+            - terraform-plugins
+          script:
+            - terraform init
+            - terraform workspace select prod
+            - terraform plan -var-file=environments/prod.tfvars -out=prod.tfplan -input=false
+            - terraform apply -input=false prod.tfplan

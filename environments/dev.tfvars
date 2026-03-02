@@ -1,0 +1,21 @@
+# Development Environment Configuration
+aws_region  = "us-east-1"
+environment = "dev"
+vpc_id      = "vpc-01ebffb1cf75da0ec"
+vpc_cidr    = "10.0.0.0/16"
+private_subnet_ids = [
+  "subnet-0a82db787a1a1167a",
+  "subnet-0ec2594a375722805",
+  "subnet-0c81283c4a554f044"
+]
+deployment_bucket  = "oncokb-deployment-data-270327054051"
+aws_account_id     = "270327054051"
+rds_instance_class = "db.t3.small"
+
+# ECS Service Connect - existing corporate namespace
+service_connect_namespace_arn  = "arn:aws:servicediscovery:us-east-1:270327054051:namespace/ns-u42x25abybpjh7yf"
+service_connect_namespace_name = "cggt-dev.vrtx.com"
+
+# oncokb transcript 
+transcript_jwt_base64_secret_arn = "arn:aws:secretsmanager:us-east-1:270327054051:secret:oncokb/dev/oncokb-transcript/jwt-base64-secret-gXDt2d"
+transcript_jwt_token_arn         = "arn:aws:secretsmanager:us-east-1:270327054051:secret:oncokb/dev/oncokb-transcript/jwt-token-gfXggI"
