@@ -31,203 +31,803 @@ curl -sf http://$(terraform output -raw alb_dns_name)/api/v1/info
 ["exec java -Djdbc.driverClassName=com.mysql.jdbc.Driver \"-Djdbc.url=$JDBC_URL\" \"-Djdbc.username=$JDBC_USERNAME\" \"-Djdbc.password=$JDBC_PASSWORD\" -Doncokb_transcript.url=http://oncokb-transcript:9090 \"-Doncokb_transcript.token=$TRANSCRIPT_TOKEN\" -Dgenome_nexus.grch37.url=http://gn-grch37:8888 -Dgenome_nexus.grch38.url=http://gn-grch38:8889 -jar /webapp-runner.jar /app.war"]
 
 timestamp,message
-1772422765131,Expanding app.war into /target/tomcat.8080/webapps/expanded
-1772422765131,Adding Context  for /target/tomcat.8080/webapps/expanded
-1772422765529,"Mar 02, 2026 3:39:25 AM org.apache.coyote.AbstractProtocol init"
-1772422765530,"INFO: Initializing ProtocolHandler [""http-nio-8080""]"
-1772422765554,"Mar 02, 2026 3:39:25 AM org.apache.tomcat.util.net.NioSelectorPool getSharedSelector"
-1772422765554,INFO: Using a shared selector for servlet write/read
-1772422765584,"Mar 02, 2026 3:39:25 AM org.apache.catalina.core.StandardService startInternal"
-1772422765584,INFO: Starting service [Tomcat]
-1772422765585,"Mar 02, 2026 3:39:25 AM org.apache.catalina.core.StandardEngine startInternal"
-1772422765585,INFO: Starting Servlet engine: [Apache Tomcat/8.5.68]
-1772422765610,"Mar 02, 2026 3:39:25 AM org.apache.catalina.startup.SetContextPropertiesRule begin"
-1772422765610,WARNING: [SetContextPropertiesRule]{Context} Setting property 'antiJARLocking' to 'true' did not find a matching property.
-1772422766143,"Mar 02, 2026 3:39:26 AM org.apache.catalina.startup.ContextConfig getDefaultWebXmlFragment"
-1772422766143,INFO: No global web.xml found
-1772422780721,"Mar 02, 2026 3:39:40 AM org.apache.jasper.servlet.TldScanner scanJars"
-1772422780721,INFO: At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-1772422780790,"Mar 02, 2026 3:39:40 AM org.apache.catalina.core.ApplicationContext log"
-1772422780790,INFO: No Spring WebApplicationInitializer types detected on classpath
-1772422780872,"Mar 02, 2026 3:39:40 AM org.apache.catalina.core.ApplicationContext log"
-1772422780872,INFO: Initializing Spring root WebApplicationContext
-1772422780874,log4j:WARN No appenders could be found for logger (org.springframework.web.context.ContextLoader).
-1772422780874,log4j:WARN Please initialize the log4j system properly.
-1772422780874,log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
-1772422781661,"Mar 02, 2026 3:39:41 AM org.apache.catalina.core.ApplicationContext log"
-1772422781661,INFO: Initializing Spring FrameworkServlet 'SpringDispatcher'
-1772422796533,"Mar 02, 2026 3:39:56 AM org.apache.catalina.core.ApplicationContext log"
-1772422796533,SEVERE: Servlet.init() for servlet [SpringDispatcher] threw exception
-1772422796533,org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
-1772422796533,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
-1772422796533,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
-1772422796533,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
-1772422796533,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
-1772422796533,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
-1772422796533,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
-1772422796533,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
-1772422796533,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
-1772422796533,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
-1772422796533,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
-1772422796533,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
-1772422796533,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
-1772422796533,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
-1772422796533,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
-1772422796533,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
-1772422796533,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
-1772422796533,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
-1772422796533,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
-1772422796533,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
-1772422796533,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
-1772422796533,	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:990)
-1772422796533,	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4952)
-1772422796533,	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5266)
-1772422796533,	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
-1772422796533,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1429)
-1772422796533,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1419)
-1772422796533,	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-1772422796533,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-1772422796533,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-1772422796533,	at java.lang.Thread.run(Thread.java:750)
-1772422796533,Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
-1772422796533,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:157)
-1772422796533,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
-1772422796533,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
-1772422796533,	... 29 more
-1772422796533,Caused by: java.lang.NullPointerException
-1772422796533,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
-1772422796533,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
-1772422796533,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-1772422796533,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-1772422796533,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-1772422796533,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-1772422796533,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
-1772422796533,	... 31 more
-1772422796534,"Mar 02, 2026 3:39:56 AM org.apache.catalina.core.StandardContext loadOnStartup"
-1772422796534,SEVERE: Servlet [SpringDispatcher] in web application [] threw load() exception
-1772422796534,java.lang.NullPointerException
-1772422796534,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
-1772422796534,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
-1772422796534,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-1772422796534,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-1772422796534,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-1772422796534,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-1772422796534,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
-1772422796534,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
-1772422796534,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
-1772422796534,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
-1772422796534,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
-1772422796534,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
-1772422796534,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
-1772422796534,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
-1772422796534,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
-1772422796534,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
-1772422796534,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
-1772422796534,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
-1772422796534,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
-1772422796534,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
-1772422796534,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
-1772422796534,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
-1772422796534,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
-1772422796534,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
-1772422796534,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
-1772422796534,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
-1772422796534,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
-1772422796534,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
-1772422796534,	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:990)
-1772422796534,	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4952)
-1772422796534,	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5266)
-1772422796534,	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
-1772422796534,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1429)
-1772422796534,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1419)
-1772422796534,	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-1772422796534,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-1772422796534,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-1772422796534,	at java.lang.Thread.run(Thread.java:750)
-1772422796559,"Mar 02, 2026 3:39:56 AM org.apache.coyote.AbstractProtocol start"
-1772422796559,"INFO: Starting ProtocolHandler [""http-nio-8080""]"
-1772422796686,"Mar 02, 2026 3:39:56 AM org.apache.catalina.core.ApplicationContext log"
-1772422796686,INFO: Initializing Spring FrameworkServlet 'SpringDispatcher'
-1772422808023,"Mar 02, 2026 3:40:08 AM org.apache.catalina.core.ApplicationContext log"
-1772422808023,SEVERE: Servlet.init() for servlet [SpringDispatcher] threw exception
-1772422808023,org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
-1772422808023,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
-1772422808023,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
-1772422808023,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
-1772422808023,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
-1772422808023,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
-1772422808023,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
-1772422808023,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
-1772422808023,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
-1772422808023,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
-1772422808023,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
-1772422808023,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
-1772422808024,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
-1772422808024,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
-1772422808024,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
-1772422808024,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
-1772422808024,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
-1772422808024,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
-1772422808024,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
-1772422808024,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
-1772422808024,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
-1772422808024,	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:768)
-1772422808024,	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:133)
-1772422808024,	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-1772422808024,	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
-1772422808024,	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
-1772422808024,	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
-1772422808024,	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-1772422808024,	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
-1772422808024,	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
-1772422808024,	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-1772422808024,	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
-1772422808024,	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
-1772422808024,	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-1772422808024,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-1772422808024,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-1772422808024,	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-1772422808024,	at java.lang.Thread.run(Thread.java:750)
-1772422808024,Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
-1772422808024,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:157)
-1772422808024,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
-1772422808024,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
-1772422808024,	... 36 more
-1772422808024,Caused by: java.lang.NullPointerException
-1772422808024,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
-1772422808024,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
-1772422808024,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-1772422808024,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-1772422808024,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-1772422808024,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-1772422808024,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
-1772422808024,	... 38 more
-1772422808026,"Mar 02, 2026 3:40:08 AM org.apache.catalina.core.StandardWrapperValve invoke"
-1772422808026,SEVERE: Allocate exception for servlet [SpringDispatcher]
-1772422808026,java.lang.NullPointerException
-1772422808026,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
-1772422808026,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
-1772422808026,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-1772422808026,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-1772422808026,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-1772422808026,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-1772422808026,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
-1772422808026,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
-1772422808026,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
-1772422808026,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
-1772422808026,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
-1772422808026,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
-1772422808026,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
-1772422808026,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
-1772422808026,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
-1772422808026,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
-1772422808026,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
-1772422808026,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
-1772422808026,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
-1772422808026,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
-1772422808026,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
-1772422808026,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
-1772422808026,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
-1772422808026,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
-1772422808026,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
-1772422808026,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423625813,"2026-03-02 03:53:45,812 INFO  [localhost-startStop-1] org.mskcc.cbio.oncokb.util.CacheUtils - Add observers (Completed in 1ms at 03/02/2026 03:53:45)"
+1772423625816,"2026-03-02 03:53:45,815 INFO  [localhost-startStop-1] org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2283bd16: startup date [Mon Mar 02 03:53:45 UTC 2026]; root of context hierarchy"
+1772423625826,"2026-03-02 03:53:45,826 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/config/BeanLocations.xml]"
+1772423625905,"2026-03-02 03:53:45,905 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/DataSource.xml]"
+1772423625922,"2026-03-02 03:53:45,922 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/Hibernate.xml]"
+1772423625930,"2026-03-02 03:53:45,930 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/Gene.xml]"
+1772423625936,"2026-03-02 03:53:45,936 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/VariantConsequence.xml]"
+1772423625949,"2026-03-02 03:53:45,949 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/Drug.xml]"
+1772423625955,"2026-03-02 03:53:45,955 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/DrugGroup.xml]"
+1772423625972,"2026-03-02 03:53:45,972 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/Alteration.xml]"
+1772423625985,"2026-03-02 03:53:45,985 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/Article.xml]"
+1772423625996,"2026-03-02 03:53:45,996 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/Treatment.xml]"
+1772423626004,"2026-03-02 03:53:46,004 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/Evidence.xml]"
+1772423626013,"2026-03-02 03:53:46,013 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/PortalAlteration.xml]"
+1772423626028,"2026-03-02 03:53:46,028 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/Geneset.xml]"
+1772423626033,"2026-03-02 03:53:46,033 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/TumorType.xml]"
+1772423626039,"2026-03-02 03:53:46,039 INFO  [localhost-startStop-1] org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring/beans/Info.xml]"
+1772423626096,"2026-03-02 03:53:46,096 INFO  [localhost-startStop-1] org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Properties resource not found: class path resource [properties/database.properties] cannot be opened because it does not exist"
+1772423626306,"2026-03-02 03:53:46,306 INFO  [localhost-startStop-1] org.hibernate.annotations.common.Version - Hibernate Commons Annotations 3.2.0.Final"
+1772423626312,"2026-03-02 03:53:46,312 INFO  [localhost-startStop-1] org.hibernate.cfg.Environment - Hibernate 3.6.10.Final"
+1772423626314,"2026-03-02 03:53:46,314 INFO  [localhost-startStop-1] org.hibernate.cfg.Environment - hibernate.properties not found"
+1772423626316,"2026-03-02 03:53:46,316 INFO  [localhost-startStop-1] org.hibernate.cfg.Environment - Bytecode provider name : javassist"
+1772423626319,"2026-03-02 03:53:46,319 INFO  [localhost-startStop-1] org.hibernate.cfg.Environment - using JDK 1.4 java.sql.Timestamp handling"
+1772423626428,"2026-03-02 03:53:46,428 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.Drug"
+1772423626442,"2026-03-02 03:53:46,442 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findDrugByName => select d from Drug d where d.drugName=? and d.type = 'DRUG'"
+1772423626442,"2026-03-02 03:53:46,442 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findDrugById => select d from Drug d where d.id=?"
+1772423626442,"2026-03-02 03:53:46,442 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findDrugByUuid => select d from Drug d where d.uuid=?"
+1772423626442,"2026-03-02 03:53:46,442 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findDrugBySynonym => select d from Drug d join d.synonyms s where s=? and d.type = 'DRUG'"
+1772423626442,"2026-03-02 03:53:46,442 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findDrugByNcitCode => select d from Drug d where d.ncitCode=? and d.type = 'DRUG'"
+1772423626466,"2026-03-02 03:53:46,466 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.Drug on table drug"
+1772423626537,"2026-03-02 03:53:46,537 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.Alteration"
+1772423626537,"2026-03-02 03:53:46,537 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findAlterationsByGene => select a from Alteration a where a.gene=?"
+1772423626537,"2026-03-02 03:53:46,537 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findAlteration => select a from Alteration a where a.gene=? and a.alteration=?"
+1772423626537,"2026-03-02 03:53:46,537 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findAlterationAndReferenceGenome => select a from Alteration a join a.referenceGenomes r where a.gene=? and a.alteration=? and r=?"
+1772423626537,"2026-03-02 03:53:46,537 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findAlterationByAlterationAndName => select a from Alteration a where a.gene=? and a.alteration=? and a.name=?"
+1772423626537,"2026-03-02 03:53:46,537 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findAlterationByAlterationAndNameAndReferenceGenome => select a from Alteration a join a.referenceGenomes r where a.gene=? and a.alteration=? and a.name=? and r=?"
+1772423626537,"2026-03-02 03:53:46,537 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findMutationsByConsequence => select a from Alteration a where a.gene=? and a.consequence=?"
+1772423626537,"2026-03-02 03:53:46,537 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findMutationsByConsequenceAndPosition => select a from Alteration a where a.gene=? and a.consequence=? and a.proteinStart<=? and a.proteinEnd>=?"
+1772423626537,"2026-03-02 03:53:46,537 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findMutationsByConsequenceAndPositionOnSamePosition => select a from Alteration a where a.gene=? and a.consequence=? and a.proteinStart>=? and a.proteinStart<=? and a.proteinStart=a.proteinEnd"
+1772423626538,"2026-03-02 03:53:46,538 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.Alteration on table alteration"
+1772423626543,"2026-03-02 03:53:46,543 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.Article"
+1772423626544,"2026-03-02 03:53:46,543 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findArticleByPmid => select a from Article a where a.pmid=?"
+1772423626544,"2026-03-02 03:53:46,543 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findArticleByAbstract => select a from Article a where a.abstractContent=?"
+1772423626544,"2026-03-02 03:53:46,544 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.Article on table article"
+1772423626546,"2026-03-02 03:53:46,546 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.PortalAlteration"
+1772423626546,"2026-03-02 03:53:46,546 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findPortalAlterationCountByGene => select pa.cancerType, count(distinct pa.sampleId) as sampleCount from PortalAlteration pa, Alteration a join a.portalAlterations ap where pa.id = ap.id and pa.gene=? group by pa.cancerType"
+1772423626546,"2026-03-02 03:53:46,546 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findPortalAlterationCount => select cancerType, count(distinct sampleId) as sampleCount from PortalAlteration pa group by cancerType"
+1772423626546,"2026-03-02 03:53:46,546 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findMutationMapperData => select distinct pa from PortalAlteration pa, Alteration a join a.portalAlterations ap where pa.id = ap.id and pa.gene=?"
+1772423626546,"2026-03-02 03:53:46,546 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.PortalAlteration on table portal_alteration"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.Evidence"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByAlteration => select e from Evidence e join e.alterations a where a.id=?"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByAlterationAndTumorType => select e from Evidence e join e.alterations a join e.cancerTypes tt where a.id=? and tt.id=?"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByAlterationsAndTumorTypesAndEvidenceTypes => select e from Evidence e join e.alterations a join e.cancerTypes tt where a.id in (:alts) and tt.id in (:tts) and  e.evidenceType in (:ets)"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByAlterationsAndTumorTypesAndEvidenceTypesAndLevelOfEvidence => select e from Evidence e join e.alterations a join e.cancerTypes tt where a.id in (:alts) and tt.id in (:tts) and  e.evidenceType in (:ets) and e.levelOfEvidence in (:les)"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByAlterationAndEvidenceType => select e from Evidence e join e.alterations a where a.id=? and e.evidenceType=?"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByAlterationAndEvidenceTypeAndLevels => select e from Evidence e join e.alterations a where a.id=? and e.evidenceType=? and e.levelOfEvidence=?"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByAlterationAndEvidenceTypeAndTumorType => select e from Evidence e join e.alterations a join e.cancerTypes tt where a.id=:alt and e.evidenceType=:et and tt.id=:tt"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByGene => select e from Evidence e where e.gene=?"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByGeneAndEvidenceType => select e from Evidence e where e.gene=? and e.evidenceType=?"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByGeneAndEvidenceTypeAndTumorType => select e from Evidence e join e.cancerTypes tt where e.gene=:g and e.evidenceType=:et and tt.id=:tt"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByTumorType => select e from Evidence e join e.cancerTypes tt where tt.id=:tt"
+1772423626547,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByGeneAndTumorType => select e from Evidence e join e.alterations a join e.cancerTypes tt where e.gene=:g and tt.id=:tt"
+1772423626548,"2026-03-02 03:53:46,547 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByIds => select e from Evidence e where e.id in (:ids)"
+1772423626548,"2026-03-02 03:53:46,548 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidencesByUUIDs => select e from Evidence e where e.uuid in (:uuids)"
+1772423626548,"2026-03-02 03:53:46,548 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findTumorTypesWithEvidencesForAlterations => select distinct e.cancerTypes from Evidence e join e.alterations a where a.id in (:alts)"
+1772423626548,"2026-03-02 03:53:46,548 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findEvidenceByUUIDs => select e from Evidence e where e.uuid in (:uuids)"
+1772423626548,"2026-03-02 03:53:46,548 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.Evidence on table evidence"
+1772423626551,"2026-03-02 03:53:46,551 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.Treatment"
+1772423626551,"2026-03-02 03:53:46,551 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.Treatment on table treatment"
+1772423626553,"2026-03-02 03:53:46,553 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.Gene"
+1772423626553,"2026-03-02 03:53:46,553 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findGeneByHugoSymbol => select g from Gene g where g.hugoSymbol=?"
+1772423626553,"2026-03-02 03:53:46,553 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findGenesByAlias => select g from Gene g join g.geneAliases ga where ga=?"
+1772423626553,"2026-03-02 03:53:46,553 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.Gene on table gene"
+1772423626563,"2026-03-02 03:53:46,563 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.VariantConsequence"
+1772423626563,"2026-03-02 03:53:46,563 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findVariantConsequenceByTerm => select v from VariantConsequence v where v.term=?"
+1772423626563,"2026-03-02 03:53:46,563 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.VariantConsequence on table variant_consequence"
+1772423626564,"2026-03-02 03:53:46,564 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.TreatmentDrug"
+1772423626564,"2026-03-02 03:53:46,564 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.TreatmentDrug on table treatment_drug"
+1772423626570,"2026-03-02 03:53:46,569 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.Geneset"
+1772423626570,"2026-03-02 03:53:46,570 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findGenesetByName => select g from Geneset g where g.name=?"
+1772423626570,"2026-03-02 03:53:46,570 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findGenesetByUUID => select g from Geneset g where g.uuid=?"
+1772423626570,"2026-03-02 03:53:46,570 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.Geneset on table geneset"
+1772423626571,"2026-03-02 03:53:46,571 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.TumorType"
+1772423626571,"2026-03-02 03:53:46,571 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.QueryBinder - Binding Named query: findTumorTypeByCode => select tt from TumorType  tt where tt.code=?"
+1772423626571,"2026-03-02 03:53:46,571 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.TumorType on table cancer_type"
+1772423626573,"2026-03-02 03:53:46,573 INFO  [localhost-startStop-1] org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: org.mskcc.cbio.oncokb.model.Info"
+1772423626574,"2026-03-02 03:53:46,573 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.EntityBinder - Bind entity org.mskcc.cbio.oncokb.model.Info on table info"
+1772423626587,"2026-03-02 03:53:46,587 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.mskcc.cbio.oncokb.model.Evidence.treatments -> treatment"
+1772423626587,"2026-03-02 03:53:46,587 INFO  [localhost-startStop-1] org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: org.mskcc.cbio.oncokb.model.Treatment.treatmentDrugs -> treatment_drug"
+1772423626592,"2026-03-02 03:53:46,592 INFO  [localhost-startStop-1] org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring"
+1772423626595,"2026-03-02 03:53:46,595 INFO  [localhost-startStop-1] org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean - Building new Hibernate SessionFactory"
+1772423626603,"2026-03-02 03:53:46,603 INFO  [localhost-startStop-1] org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled."
+1772423626629,"2026-03-02 03:53:46,628 WARN  [localhost-startStop-1] org.hibernate.mapping.RootClass - composite-id class does not override equals(): org.mskcc.cbio.oncokb.model.TreatmentDrugId"
+1772423626629,"2026-03-02 03:53:46,629 WARN  [localhost-startStop-1] org.hibernate.mapping.RootClass - composite-id class does not override hashCode(): org.mskcc.cbio.oncokb.model.TreatmentDrugId"
+1772423626631,"2026-03-02 03:53:46,631 INFO  [localhost-startStop-1] org.hibernate.connection.ConnectionProviderFactory - Initializing connection provider: org.springframework.orm.hibernate3.LocalDataSourceConnectionProvider"
+1772423626894,"2026-03-02 03:53:46,893 INFO  [localhost-startStop-1] org.hibernate.dialect.Dialect - Using dialect: org.mskcc.cbio.oncokb.util.UTF8MySQLDialect"
+1772423626943,"2026-03-02 03:53:46,943 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Database ->"
+1772423626943,       name : MySQL
+1772423626943,    version : 8.0.44
+1772423626943,      major : 8
+1772423626943,      minor : 0
+1772423626943,"2026-03-02 03:53:46,943 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Driver ->"
+1772423626943,       name : MySQL Connector Java
+1772423626943,    version : mysql-connector-java-5.1.49 ( Revision: ad86f36e100e104cd926c6b81c8cab9565750116 )
+1772423626943,      major : 5
+1772423626943,      minor : 1
+1772423626951,"2026-03-02 03:53:46,951 INFO  [localhost-startStop-1] org.hibernate.transaction.TransactionFactoryFactory - Transaction strategy: org.springframework.orm.hibernate3.SpringTransactionFactory"
+1772423626953,"2026-03-02 03:53:46,953 INFO  [localhost-startStop-1] org.hibernate.transaction.TransactionManagerLookupFactory - No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended)"
+1772423626953,"2026-03-02 03:53:46,953 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Automatic flush during beforeCompletion(): disabled"
+1772423626953,"2026-03-02 03:53:46,953 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Automatic session close at end of transaction: disabled"
+1772423626953,"2026-03-02 03:53:46,953 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - JDBC batch size: 15"
+1772423626953,"2026-03-02 03:53:46,953 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - JDBC batch updates for versioned data: disabled"
+1772423626954,"2026-03-02 03:53:46,954 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Scrollable result sets: enabled"
+1772423626954,"2026-03-02 03:53:46,954 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - JDBC3 getGeneratedKeys(): enabled"
+1772423626954,"2026-03-02 03:53:46,954 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Connection release mode: after_statement"
+1772423626955,"2026-03-02 03:53:46,955 WARN  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Overriding release mode as connection provider does not support 'after_statement'"
+1772423626955,"2026-03-02 03:53:46,955 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Maximum outer join fetch depth: 2"
+1772423626956,"2026-03-02 03:53:46,956 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Default batch fetch size: 1"
+1772423626956,"2026-03-02 03:53:46,956 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Generate SQL with comments: disabled"
+1772423626956,"2026-03-02 03:53:46,956 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Order SQL updates by primary key: disabled"
+1772423626956,"2026-03-02 03:53:46,956 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Order SQL inserts for batching: disabled"
+1772423626956,"2026-03-02 03:53:46,956 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory"
+1772423626958,"2026-03-02 03:53:46,958 INFO  [localhost-startStop-1] org.hibernate.hql.ast.ASTQueryTranslatorFactory - Using ASTQueryTranslatorFactory"
+1772423626958,"2026-03-02 03:53:46,958 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Query language substitutions: {}"
+1772423626958,"2026-03-02 03:53:46,958 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - JPA-QL strict compliance: disabled"
+1772423626958,"2026-03-02 03:53:46,958 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Second-level cache: disabled"
+1772423626958,"2026-03-02 03:53:46,958 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Query cache: disabled"
+1772423626958,"2026-03-02 03:53:46,958 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Cache region factory : org.hibernate.cache.impl.NoCachingRegionFactory"
+1772423626959,"2026-03-02 03:53:46,959 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Optimize cache for minimal puts: disabled"
+1772423626959,"2026-03-02 03:53:46,959 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Structured second-level cache entries: disabled"
+1772423626964,"2026-03-02 03:53:46,964 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Statistics: disabled"
+1772423626965,"2026-03-02 03:53:46,965 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Deleted entity synthetic identifier rollback: disabled"
+1772423626965,"2026-03-02 03:53:46,965 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Default entity-mode: pojo"
+1772423626965,"2026-03-02 03:53:46,965 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Named query checking : enabled"
+1772423626965,"2026-03-02 03:53:46,965 INFO  [localhost-startStop-1] org.hibernate.cfg.SettingsFactory - Check Nullability in Core (should be disabled when Bean Validation is on): enabled"
+1772423626982,"2026-03-02 03:53:46,982 INFO  [localhost-startStop-1] org.hibernate.impl.SessionFactoryImpl - building session factory"
+1772423626987,"2026-03-02 03:53:46,987 INFO  [localhost-startStop-1] org.hibernate.type.BasicTypeRegistry - Type registration [wrapper_materialized_blob] overrides previous : org.hibernate.type.WrappedMaterializedBlobType@6d3a617f"
+1772423626988,"2026-03-02 03:53:46,987 INFO  [localhost-startStop-1] org.hibernate.type.BasicTypeRegistry - Type registration [wrapper_characters_clob] overrides previous : org.hibernate.type.CharacterArrayClobType@6582677a"
+1772423626988,"2026-03-02 03:53:46,988 INFO  [localhost-startStop-1] org.hibernate.type.BasicTypeRegistry - Type registration [characters_clob] overrides previous : org.hibernate.type.PrimitiveCharacterArrayClobType@75a8853c"
+1772423626988,"2026-03-02 03:53:46,988 INFO  [localhost-startStop-1] org.hibernate.type.BasicTypeRegistry - Type registration [materialized_clob] overrides previous : org.hibernate.type.MaterializedClobType@7b091bd1"
+1772423626988,"2026-03-02 03:53:46,988 INFO  [localhost-startStop-1] org.hibernate.type.BasicTypeRegistry - Type registration [blob] overrides previous : org.hibernate.type.BlobType@4506bc56"
+1772423626988,"2026-03-02 03:53:46,988 INFO  [localhost-startStop-1] org.hibernate.type.BasicTypeRegistry - Type registration [java.sql.Blob] overrides previous : org.hibernate.type.BlobType@4506bc56"
+1772423626988,"2026-03-02 03:53:46,988 INFO  [localhost-startStop-1] org.hibernate.type.BasicTypeRegistry - Type registration [materialized_blob] overrides previous : org.hibernate.type.MaterializedBlobType@33c9ba3b"
+1772423626988,"2026-03-02 03:53:46,988 INFO  [localhost-startStop-1] org.hibernate.type.BasicTypeRegistry - Type registration [clob] overrides previous : org.hibernate.type.ClobType@279581b"
+1772423626988,"2026-03-02 03:53:46,988 INFO  [localhost-startStop-1] org.hibernate.type.BasicTypeRegistry - Type registration [java.sql.Clob] overrides previous : org.hibernate.type.ClobType@279581b"
+1772423627427,"2026-03-02 03:53:47,427 INFO  [localhost-startStop-1] org.hibernate.impl.SessionFactoryObjectFactory - Not binding factory to JNDI, no JNDI name configured"
+1772423627950,"2026-03-02 03:53:47,950 WARN  [localhost-startStop-1] org.hibernate.util.JDBCExceptionReporter - SQL Error: 1054, SQLState: 42S22"
+1772423627950,"2026-03-02 03:53:47,950 ERROR [localhost-startStop-1] org.hibernate.util.JDBCExceptionReporter - Unknown column 'gene0_.gene_type' in 'field list'"
+1772423627953,"2026-03-02 03:53:47,952 ERROR [localhost-startStop-1] org.mskcc.cbio.oncokb.util.CacheUtils - Unexpected Error"
+1772423627953,"org.springframework.dao.InvalidDataAccessResourceUsageException: could not execute query; SQL [select gene0_.entrez_gene_id as entrez1_6_, gene0_.gene_type as gene2_6_, gene0_.grch37_isoform as grch3_6_, gene0_.grch37_ref_seq as grch4_6_, gene0_.grch38_isoform as grch5_6_, gene0_.grch38_ref_seq as grch6_6_, gene0_.hugo_symbol as hugo7_6_ from gene gene0_]; nested exception is org.hibernate.exception.SQLGrammarException: could not execute query"
+1772423627953,	at org.springframework.orm.hibernate3.SessionFactoryUtils.convertHibernateAccessException(SessionFactoryUtils.java:643)
+1772423627953,	at org.springframework.orm.hibernate3.HibernateAccessor.convertHibernateAccessException(HibernateAccessor.java:416)
+1772423627953,	at org.springframework.orm.hibernate3.HibernateTemplate.doExecute(HibernateTemplate.java:416)
+1772423627953,	at org.springframework.orm.hibernate3.HibernateTemplate.executeWithNativeSession(HibernateTemplate.java:379)
+1772423627953,	at org.springframework.orm.hibernate3.HibernateTemplate.find(HibernateTemplate.java:975)
+1772423627953,	at org.springframework.orm.hibernate3.HibernateTemplate.find(HibernateTemplate.java:965)
+1772423627953,	at org.mskcc.cbio.oncokb.dao.impl.GenericDaoImpl.findAll(GenericDaoImpl.java:118)
+1772423627953,	at org.mskcc.cbio.oncokb.bo.impl.GenericBoImpl.findAll(GenericBoImpl.java:42)
+1772423627953,	at org.mskcc.cbio.oncokb.util.CacheUtils.cacheAllGenes(CacheUtils.java:286)
+1772423627953,	at org.mskcc.cbio.oncokb.util.CacheUtils.<clinit>(CacheUtils.java:192)
+1772423627953,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423627953,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423627953,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423627953,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423627953,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423627953,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423627953,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423627953,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423627953,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423627953,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423627953,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423627953,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423627953,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423627953,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423627953,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423627953,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423627953,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423627953,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423627953,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423627953,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423627953,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423627953,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423627953,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423627953,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423627953,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423627953,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423627953,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423627953,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423627953,	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:990)
+1772423627953,	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4952)
+1772423627953,	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5266)
+1772423627953,	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+1772423627953,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1429)
+1772423627953,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1419)
+1772423627953,	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+1772423627953,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423627953,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423627953,	at java.lang.Thread.run(Thread.java:750)
+1772423627953,Caused by: org.hibernate.exception.SQLGrammarException: could not execute query
+1772423627953,	at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:92)
+1772423627953,	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:66)
+1772423627953,	at org.hibernate.loader.Loader.doList(Loader.java:2545)
+1772423627953,	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2276)
+1772423627953,	at org.hibernate.loader.Loader.list(Loader.java:2271)
+1772423627953,	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:459)
+1772423627953,	at org.hibernate.hql.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:365)
+1772423627953,	at org.hibernate.engine.query.HQLQueryPlan.performList(HQLQueryPlan.java:196)
+1772423627953,	at org.hibernate.impl.SessionImpl.list(SessionImpl.java:1268)
+1772423627953,	at org.hibernate.impl.QueryImpl.list(QueryImpl.java:102)
+1772423627953,	at org.springframework.orm.hibernate3.HibernateTemplate$29.doInHibernate(HibernateTemplate.java:985)
+1772423627953,	at org.springframework.orm.hibernate3.HibernateTemplate$29.doInHibernate(HibernateTemplate.java:975)
+1772423627953,	at org.springframework.orm.hibernate3.HibernateTemplate.doExecute(HibernateTemplate.java:411)
+1772423627953,	... 45 more
+1772423627953,Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 'gene0_.gene_type' in 'field list'
+1772423627953,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423627953,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423627953,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423627953,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423627953,	at com.mysql.jdbc.Util.handleNewInstance(Util.java:403)
+1772423627953,	at com.mysql.jdbc.Util.getInstance(Util.java:386)
+1772423627953,	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:944)
+1772423627953,	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3933)
+1772423627953,	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3869)
+1772423627953,	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2524)
+1772423627953,	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2675)
+1772423627953,	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2465)
+1772423627953,	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1915)
+1772423627953,	at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:2023)
+1772423627953,	at org.apache.commons.dbcp.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:96)
+1772423627953,	at org.apache.commons.dbcp.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:96)
+1772423627953,	at org.hibernate.jdbc.AbstractBatcher.getResultSet(AbstractBatcher.java:208)
+1772423627953,	at org.hibernate.loader.Loader.getResultSet(Loader.java:1953)
+1772423627953,	at org.hibernate.loader.Loader.doQuery(Loader.java:802)
+1772423627953,	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:274)
+1772423627953,	at org.hibernate.loader.Loader.doList(Loader.java:2542)
+1772423627953,	... 55 more
+1772423627954,"2026-03-02 03:53:47,954 WARN  [localhost-startStop-1] org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException"
+1772423627954,"2026-03-02 03:53:47,954 ERROR [localhost-startStop-1] org.springframework.web.servlet.DispatcherServlet - Context initialization failed"
+1772423627954,org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423627954,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
+1772423627954,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423627954,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423627954,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423627954,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423627954,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423627954,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423627954,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423627954,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423627954,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423627954,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423627954,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423627954,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423627954,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423627954,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423627954,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423627954,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423627954,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423627954,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423627954,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423627954,	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:990)
+1772423627954,	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4952)
+1772423627954,	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5266)
+1772423627954,	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+1772423627954,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1429)
+1772423627954,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1419)
+1772423627954,	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+1772423627954,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423627954,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423627954,	at java.lang.Thread.run(Thread.java:750)
+1772423627954,Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423627954,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:157)
+1772423627954,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423627954,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423627954,	... 29 more
+1772423627954,Caused by: java.lang.NullPointerException
+1772423627954,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423627954,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423627954,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423627954,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423627954,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423627954,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423627954,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423627954,	... 31 more
+1772423627955,"Mar 02, 2026 3:53:47 AM org.apache.catalina.core.ApplicationContext log"
+1772423627955,SEVERE: Servlet.init() for servlet [SpringDispatcher] threw exception
+1772423627955,org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423627955,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
+1772423627955,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423627955,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423627955,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423627955,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423627955,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423627955,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423627955,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423627955,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423627955,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423627955,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423627955,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423627955,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423627955,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423627955,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423627955,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423627955,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423627955,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423627955,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423627955,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423627955,	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:990)
+1772423627955,	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4952)
+1772423627955,	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5266)
+1772423627955,	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+1772423627955,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1429)
+1772423627955,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1419)
+1772423627955,	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+1772423627955,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423627955,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423627955,	at java.lang.Thread.run(Thread.java:750)
+1772423627955,Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423627955,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:157)
+1772423627955,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423627955,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423627955,	... 29 more
+1772423627955,Caused by: java.lang.NullPointerException
+1772423627955,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423627955,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423627955,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423627955,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423627955,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423627955,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423627955,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423627955,	... 31 more
+1772423627955,"Mar 02, 2026 3:53:47 AM org.apache.catalina.core.StandardContext loadOnStartup"
+1772423627955,SEVERE: Servlet [SpringDispatcher] in web application [] threw load() exception
+1772423627955,java.lang.NullPointerException
+1772423627955,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423627955,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423627955,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423627955,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423627955,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423627955,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423627955,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423627955,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423627955,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423627955,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423627955,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423627955,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423627955,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423627955,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423627955,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423627955,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423627955,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423627955,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423627955,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423627955,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423627955,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423627955,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423627955,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423627955,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423627955,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423627955,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423627955,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423627955,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423627955,	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:990)
+1772423627955,	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4952)
+1772423627955,	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5266)
+1772423627955,	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+1772423627955,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1429)
+1772423627955,	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1419)
+1772423627955,	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+1772423627955,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423627955,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423627955,	at java.lang.Thread.run(Thread.java:750)
+1772423627973,"Mar 02, 2026 3:53:47 AM org.apache.coyote.AbstractProtocol start"
+1772423627973,"INFO: Starting ProtocolHandler [""http-nio-8080""]"
+1772423628062,"Mar 02, 2026 3:53:48 AM org.apache.catalina.core.ApplicationContext log"
+1772423628062,INFO: Initializing Spring FrameworkServlet 'SpringDispatcher'
+1772423628062,"2026-03-02 03:53:48,062 INFO  [http-nio-8080-exec-3] org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'SpringDispatcher': initialization started"
+1772423628064,"2026-03-02 03:53:48,063 INFO  [http-nio-8080-exec-3] org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Refreshing WebApplicationContext for namespace 'SpringDispatcher-servlet': startup date [Mon Mar 02 03:53:48 UTC 2026]; parent: Root WebApplicationContext"
+1772423628064,"2026-03-02 03:53:48,064 INFO  [http-nio-8080-exec-3] org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Successfully resolved class for [org.mskcc.cbio.oncokb.config.MvcConfigurationEnterprise]"
+1772423628270,"2026-03-02 03:53:48,270 INFO  [http-nio-8080-exec-3] org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring"
+1772423633577,"2026-03-02 03:53:53,576 WARN  [http-nio-8080-exec-3] org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException"
+1772423633577,"2026-03-02 03:53:53,577 ERROR [http-nio-8080-exec-3] org.springframework.web.servlet.DispatcherServlet - Context initialization failed"
+1772423633577,org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423633577,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
+1772423633577,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423633577,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423633577,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423633577,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423633577,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423633577,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423633577,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423633577,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423633577,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423633577,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423633577,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423633577,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423633577,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423633577,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423633577,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423633577,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423633577,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423633577,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423633577,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423633577,	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:768)
+1772423633577,	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:133)
+1772423633577,	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+1772423633577,	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+1772423633577,	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+1772423633577,	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+1772423633577,	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+1772423633577,	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+1772423633577,	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+1772423633577,	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+1772423633577,	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+1772423633577,	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+1772423633577,	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+1772423633577,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423633577,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423633577,	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+1772423633577,	at java.lang.Thread.run(Thread.java:750)
+1772423633577,Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423633577,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:157)
+1772423633577,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423633577,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423633577,	... 36 more
+1772423633577,Caused by: java.lang.NullPointerException
+1772423633577,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423633577,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423633577,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423633577,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423633578,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423633578,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423633578,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423633578,	... 38 more
+1772423633578,"Mar 02, 2026 3:53:53 AM org.apache.catalina.core.ApplicationContext log"
+1772423633578,SEVERE: Servlet.init() for servlet [SpringDispatcher] threw exception
+1772423633578,org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423633578,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
+1772423633578,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423633578,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423633578,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423633578,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423633578,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423633578,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423633578,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423633578,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423633578,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423633578,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423633578,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423633578,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423633578,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423633578,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423633578,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423633578,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423633578,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423633578,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423633578,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423633578,	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:768)
+1772423633578,	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:133)
+1772423633578,	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+1772423633578,	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+1772423633578,	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+1772423633578,	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+1772423633578,	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+1772423633578,	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+1772423633578,	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+1772423633578,	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+1772423633578,	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+1772423633578,	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+1772423633578,	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+1772423633578,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423633578,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423633578,	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+1772423633578,	at java.lang.Thread.run(Thread.java:750)
+1772423633578,Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423633578,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:157)
+1772423633578,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423633578,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423633578,	... 36 more
+1772423633578,Caused by: java.lang.NullPointerException
+1772423633578,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423633578,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423633578,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423633578,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423633578,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423633578,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423633578,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423633578,	... 38 more
+1772423633588,"Mar 02, 2026 3:53:53 AM org.apache.catalina.core.ApplicationContext log"
+1772423633589,INFO: Initializing Spring FrameworkServlet 'SpringDispatcher'
+1772423633590,"Mar 02, 2026 3:53:53 AM org.apache.catalina.core.StandardWrapperValve invoke"
+1772423633590,SEVERE: Allocate exception for servlet [SpringDispatcher]
+1772423633590,java.lang.NullPointerException
+1772423633590,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423633590,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423633590,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423633590,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423633590,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423633590,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423633590,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423633590,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423633590,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423633590,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423633590,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423633590,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423633590,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423633590,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423633590,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423633590,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423633590,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423633590,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423633590,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423633590,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423633590,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423633590,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423633590,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423633590,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423633590,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423633590,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423633590,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423633590,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423633590,	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:768)
+1772423633590,	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:133)
+1772423633590,	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+1772423633590,	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+1772423633590,	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+1772423633590,	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+1772423633590,	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+1772423633590,	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+1772423633590,	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+1772423633590,	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+1772423633590,	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+1772423633590,	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+1772423633590,	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+1772423633590,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423633590,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423633590,	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+1772423633590,	at java.lang.Thread.run(Thread.java:750)
+1772423633591,"2026-03-02 03:53:53,589 INFO  [http-nio-8080-exec-4] org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'SpringDispatcher': initialization started"
+1772423633592,"2026-03-02 03:53:53,592 INFO  [http-nio-8080-exec-4] org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Refreshing WebApplicationContext for namespace 'SpringDispatcher-servlet': startup date [Mon Mar 02 03:53:53 UTC 2026]; parent: Root WebApplicationContext"
+1772423633596,"2026-03-02 03:53:53,596 INFO  [http-nio-8080-exec-4] org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Successfully resolved class for [org.mskcc.cbio.oncokb.config.MvcConfigurationEnterprise]"
+1772423633602,"2026-03-02 03:53:53,602 WARN  [http-nio-8080-exec-3] io.sentry.dsn.Dsn - *** Couldn't find a suitable DSN, Sentry operations will do nothing! See documentation: https://docs.sentry.io/clients/java/ ***"
+1772423633642,"2026-03-02 03:53:53,642 WARN  [http-nio-8080-exec-3] io.sentry.DefaultSentryClientFactory - No 'stacktrace.app.packages' was configured, this option is highly recommended as it affects stacktrace grouping and display on Sentry. See documentation: https://docs.sentry.io/clients/java/config/#in-application-stack-frames"
+1772423633860,"2026-03-02 03:53:53,860 INFO  [http-nio-8080-exec-4] org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring"
+1772423639634,"2026-03-02 03:53:59,633 WARN  [http-nio-8080-exec-4] org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException"
+1772423639635,"2026-03-02 03:53:59,634 ERROR [http-nio-8080-exec-4] org.springframework.web.servlet.DispatcherServlet - Context initialization failed"
+1772423639635,org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423639635,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
+1772423639635,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423639635,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423639635,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423639635,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423639635,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423639635,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423639635,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423639635,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423639635,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423639635,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423639635,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423639635,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423639635,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423639635,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423639635,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423639635,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423639635,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423639635,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423639635,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423639635,	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:768)
+1772423639635,	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:133)
+1772423639635,	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+1772423639635,	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+1772423639635,	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+1772423639635,	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+1772423639635,	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+1772423639635,	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+1772423639635,	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+1772423639635,	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+1772423639635,	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+1772423639635,	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+1772423639635,	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+1772423639635,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423639635,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423639635,	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+1772423639635,	at java.lang.Thread.run(Thread.java:750)
+1772423639635,Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423639635,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:157)
+1772423639635,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423639635,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423639635,	... 36 more
+1772423639635,Caused by: java.lang.NullPointerException
+1772423639635,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423639635,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423639635,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423639635,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423639635,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423639635,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423639635,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423639635,	... 38 more
+1772423639635,"Mar 02, 2026 3:53:59 AM org.apache.catalina.core.ApplicationContext log"
+1772423639635,SEVERE: Servlet.init() for servlet [SpringDispatcher] threw exception
+1772423639635,org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423639635,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
+1772423639635,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423639635,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423639635,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423639635,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423639635,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423639635,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423639635,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423639635,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423639635,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423639635,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423639635,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423639635,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423639635,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423639635,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423639635,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423639635,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423639635,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423639635,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423639635,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423639635,	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:768)
+1772423639635,	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:133)
+1772423639635,	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+1772423639635,	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+1772423639635,	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+1772423639635,	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+1772423639635,	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+1772423639635,	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+1772423639635,	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+1772423639635,	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+1772423639635,	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+1772423639635,	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+1772423639635,	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+1772423639635,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423639635,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423639635,	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+1772423639635,	at java.lang.Thread.run(Thread.java:750)
+1772423639635,Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423639635,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:157)
+1772423639635,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423639635,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423639635,	... 36 more
+1772423639635,Caused by: java.lang.NullPointerException
+1772423639635,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423639635,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423639635,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423639635,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423639635,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423639635,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423639635,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423639635,	... 38 more
+1772423639636,"Mar 02, 2026 3:53:59 AM org.apache.catalina.core.StandardWrapperValve invoke"
+1772423639636,SEVERE: Allocate exception for servlet [SpringDispatcher]
+1772423639636,java.lang.NullPointerException
+1772423639636,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423639636,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423639636,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423639636,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423639636,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423639636,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423639636,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423639636,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423639636,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423639636,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423639636,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423639636,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423639636,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423639636,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423639636,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423639636,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423639636,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423639636,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423639636,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423639636,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423639636,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423639636,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423639636,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423639636,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423639636,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423639636,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423639636,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423639636,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423639636,	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:768)
+1772423639636,	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:133)
+1772423639636,	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+1772423639636,	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+1772423639636,	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+1772423639636,	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+1772423639636,	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+1772423639636,	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+1772423639636,	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+1772423639636,	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+1772423639636,	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+1772423639636,	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+1772423639636,	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+1772423639636,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423639636,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423639636,	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+1772423639636,	at java.lang.Thread.run(Thread.java:750)
+1772423639681,"Mar 02, 2026 3:53:59 AM org.apache.catalina.core.ApplicationContext log"
+1772423639681,INFO: Initializing Spring FrameworkServlet 'SpringDispatcher'
+1772423639681,"2026-03-02 03:53:59,681 INFO  [http-nio-8080-exec-1] org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'SpringDispatcher': initialization started"
+1772423639681,"2026-03-02 03:53:59,681 INFO  [http-nio-8080-exec-1] org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Refreshing WebApplicationContext for namespace 'SpringDispatcher-servlet': startup date [Mon Mar 02 03:53:59 UTC 2026]; parent: Root WebApplicationContext"
+1772423639682,"2026-03-02 03:53:59,682 INFO  [http-nio-8080-exec-1] org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Successfully resolved class for [org.mskcc.cbio.oncokb.config.MvcConfigurationEnterprise]"
+1772423639834,"2026-03-02 03:53:59,834 INFO  [http-nio-8080-exec-1] org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring"
+1772423645544,"2026-03-02 03:54:05,544 WARN  [http-nio-8080-exec-1] org.springframework.web.context.support.AnnotationConfigWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException"
+1772423645547,"2026-03-02 03:54:05,546 ERROR [http-nio-8080-exec-1] org.springframework.web.servlet.DispatcherServlet - Context initialization failed"
+1772423645547,org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423645547,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
+1772423645547,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423645547,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423645547,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423645547,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423645547,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423645547,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423645547,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423645547,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423645547,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423645547,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423645547,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423645547,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423645547,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423645547,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423645547,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423645547,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423645547,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423645547,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423645547,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423645547,	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:768)
+1772423645547,	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:133)
+1772423645547,	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+1772423645547,	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+1772423645547,	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+1772423645547,	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+1772423645547,	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+1772423645547,	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+1772423645547,	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+1772423645547,	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+1772423645547,	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+1772423645547,	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+1772423645547,	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+1772423645547,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423645547,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423645547,	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+1772423645547,	at java.lang.Thread.run(Thread.java:750)
+1772423645547,Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423645547,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:157)
+1772423645547,	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:89)
+1772423645547,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1150)
+1772423645547,	... 36 more
+1772423645547,Caused by: java.lang.NullPointerException
+1772423645547,	at org.mskcc.cbio.oncokb.util.MainUtils.getDataVersion(MainUtils.java:363)
+1772423645547,	at org.mskcc.cbio.oncokb.cache.CacheNameResolver.<init>(CacheNameResolver.java:38)
+1772423645547,	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+1772423645547,	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+1772423645547,	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+1772423645547,	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+1772423645547,	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:145)
+1772423645547,	... 38 more
+1772423645547,"Mar 02, 2026 3:54:05 AM org.apache.catalina.core.ApplicationContext log"
+1772423645547,SEVERE: Servlet.init() for servlet [SpringDispatcher] threw exception
+1772423645547,org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cacheNameResolver' defined in URL [jar:file:/target/tomcat.8080/webapps/expanded/WEB-INF/lib/core-4.3.0.jar!/org/mskcc/cbio/oncokb/cache/CacheNameResolver.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
+1772423645547,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1158)
+1772423645547,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1102)
+1772423645547,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511)
+1772423645547,	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481)
+1772423645547,	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312)
+1772423645547,	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+1772423645547,	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308)
+1772423645547,	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+1772423645547,	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:756)
+1772423645547,	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+1772423645547,	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+1772423645547,	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+1772423645547,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:634)
+1772423645547,	at org.springframework.web.servlet.FrameworkServlet.createWebApplicationContext(FrameworkServlet.java:682)
+1772423645547,	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:553)
+1772423645547,	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+1772423645547,	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:171)
+1772423645547,	at javax.servlet.GenericServlet.init(GenericServlet.java:158)
+1772423645547,	at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1152)
+1772423645547,	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1097)
+1772423645547,	at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:768)
+1772423645547,	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:133)
+1772423645547,	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+1772423645547,	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:544)
+1772423645547,	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+1772423645547,	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+1772423645547,	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+1772423645547,	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:364)
+1772423645547,	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:624)
+1772423645547,	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+1772423645547,	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:831)
+1772423645547,	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1651)
+1772423645547,	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+1772423645547,	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+1772423645547,	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+1772423645547,	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+1772423645547,	at java.lang.Thread.run(Thread.java:750)
+1772423645547,Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.mskcc.cbio.oncokb.cache.CacheNameResolver]: Constructor threw exception; nested exception is java.lang.NullPointerException
