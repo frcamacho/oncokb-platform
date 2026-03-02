@@ -13,3 +13,6 @@ pixi run stop && pixi run start
 
 # 5. Wait ~2 min, then validate
 curl -sf http://$(terraform output -raw alb_dns_name)/api/v1/info
+
+
+["exec java -Djdbc.driverClassName=com.mysql.jdbc.Driver \"-Djdbc.url=$JDBC_URL\" \"-Djdbc.username=$JDBC_USERNAME\" \"-Djdbc.password=$JDBC_PASSWORD\" -Doncokb_transcript.url=http://oncokb-transcript:9090 \"-Doncokb_transcript.token=$TRANSCRIPT_TOKEN\" -Dgenome_nexus.grch37.url=http://gn-grch37:8888 -Dgenome_nexus.grch38.url=http://gn-grch38:8889 -jar /webapp-runner.jar /app.war"]
